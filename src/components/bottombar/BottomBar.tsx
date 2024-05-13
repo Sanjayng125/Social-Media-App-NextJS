@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 
 const BottomBar = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const path = usePathname();
   return (
     <div className="w-full fixed bottom-0 p-3 z-50 flex justify-around bg-purple-400 border-t-2">
@@ -46,14 +46,16 @@ const BottomBar = () => {
           </Link>
         </>
       ) : (
-        <>
-          <Link
-            href={"/login"}
-            className={`text-3xl ${path === "/login" && "text-white"}`}
-          >
-            <FaSignInAlt />
-          </Link>
-        </>
+        status !== "loading" && (
+          <>
+            <Link
+              href={"/login"}
+              className={`text-3xl ${path === "/login" && "text-white"}`}
+            >
+              <FaSignInAlt />
+            </Link>
+          </>
+        )
       )}
     </div>
   );
