@@ -43,15 +43,20 @@ const RightSideBar = () => {
             {followers && (
               <ul className="mt-2 overflow-y-auto">
                 {followers.map((user: any, i) => (
-                  <li className="w-full flex items-center gap-2 my-2" key={i}>
-                    <Image
-                      src={user.avatar.url || "/noavatar.png"}
-                      alt="avatar"
-                      width={30}
-                      height={30}
-                      className="rounded-full w-[40px] h-[40px] object-cover"
-                    />
-                    <p className="font-medium">{user.username}</p>
+                  <li className="w-full hover:underline" key={i}>
+                    <Link
+                      href={`/user/${user._id}`}
+                      className="w-full flex items-center gap-2 my-2"
+                    >
+                      <Image
+                        src={user.avatar.url || "/noavatar.png"}
+                        alt="avatar"
+                        width={30}
+                        height={30}
+                        className="rounded-full w-[40px] h-[40px] object-cover"
+                      />
+                      <p className="font-medium">{user.username}</p>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -63,15 +68,20 @@ const RightSideBar = () => {
             {followings && (
               <ul className="mt-2 overflow-y-auto">
                 {followings.map((user: any, i) => (
-                  <li className="w-full flex items-center gap-2 my-2" key={i}>
-                    <Image
-                      src={user.avatar.url || "/noavatar.png"}
-                      alt="avatar"
-                      width={30}
-                      height={30}
-                      className="rounded-full w-[40px] h-[40px] object-cover"
-                    />
-                    <p className="font-medium">{user.username}</p>
+                  <li className="w-full hover:underline" key={i}>
+                    <Link
+                      href={`/user/${user._id}`}
+                      className="w-full flex items-center gap-2 my-2"
+                    >
+                      <Image
+                        src={user.avatar.url || "/noavatar.png"}
+                        alt="avatar"
+                        width={30}
+                        height={30}
+                        className="rounded-full w-[40px] h-[40px] object-cover"
+                      />
+                      <p className="font-medium">{user.username}</p>
+                    </Link>
                   </li>
                 ))}
               </ul>
