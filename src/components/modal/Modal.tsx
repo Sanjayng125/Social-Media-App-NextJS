@@ -104,7 +104,7 @@ export default function Modal2({
               </Swiper>
             </div>
             <div className="bg-purple-400 text-white w-full p-4 flex justify-between items-center">
-              <h1 className="text-2xl font-bold">{posts?.post?.caption}</h1>
+              <h1 className="sm:text-2xl font-bold">{posts?.post?.caption}</h1>
               <div className="flex gap-3 items-center relative">
                 <Like id={posts.post?._id || ""} />
                 <div className="border rounded-full flex justify-center items-center cursor-pointer p-2">

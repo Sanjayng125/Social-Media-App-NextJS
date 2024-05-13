@@ -28,7 +28,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full bg-purple-300 h-full md:p-2 md:rounded overflow-y-auto">
+    <div className="w-full bg-purple-300 h-full md:p-2 md:rounded overflow-y-auto max-md:mb-12">
       <h1 className="text-2xl font-semibold text-white mb-3 mx-2">Grams</h1>
       <hr />
       {posts && posts.length <= 0 && !loading && (

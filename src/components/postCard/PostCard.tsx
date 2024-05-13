@@ -162,7 +162,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
           showComments ? "top-0 left-0" : "translate-y-[100%]"
         }`}
       >
-        <div className="w-full flex justify-between p-2">
+        <div className="text-base sm:text-xl w-full flex justify-between p-2">
           Comments
           <button
             onClick={() => setShowComments(!showComments)}
@@ -175,7 +175,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
           <div className="w-full flex border-y border-y-white">
             <input
               type="text"
-              className="w-full bg-slate-600 text-white outline-none text-[8px] sm:text-sm py-2 px-3"
+              className="w-full bg-slate-600 text-white outline-none text-[10px] sm:text-sm py-2 px-3"
               placeholder="Comment Something..."
               value={comment}
               onChange={(e) => setComment(e.target.value)}
@@ -226,9 +226,9 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
                     alt=""
                     width={28}
                     height={28}
-                    className="w-[20px] h-[20px] sm:w-[27px] sm:h-[27px] rounded-full object-cover"
+                    className="w-[23px] h-[23px] sm:w-[27px] sm:h-[27px] rounded-full object-cover"
                   />
-                  <span className="text-[8px] sm:text-sm">
+                  <span className="text-xs sm:text-sm">
                     {comment.commentBy.username}
                   </span>
                 </div>
@@ -237,7 +237,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
                 </span>
               </div>
               <p
-                className="w-full px-2 text-[11px] sm:text-sm"
+                className="w-full px-2 text-[12px] sm:text-sm"
                 style={{ wordBreak: "break-all" }}
               >
                 {comment.commentText}

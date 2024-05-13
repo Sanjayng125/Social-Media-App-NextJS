@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const EditPost = ({ params }: { params: { id: string } }) => {
   const [caption, setCaption] = useState("");
@@ -14,6 +15,7 @@ const EditPost = ({ params }: { params: { id: string } }) => {
   const [oldTags, setOldTags] = useState("");
   const [images, setImages] = useState<imageProps[]>([]);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const getPost = async () => {
     try {
@@ -67,8 +69,7 @@ const EditPost = ({ params }: { params: { id: string } }) => {
         alert(res?.message);
       }
       if (res?.status === "success") {
-        setCaption("");
-        setTags("");
+        router.back();
       }
 
       setLoading(false);
@@ -79,7 +80,7 @@ const EditPost = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <div className="w-full bg-purple-300 md:h-[calc(100%-71px)] md:p-3 md:rounded overflow-y-auto">
+    <div className="w-full bg-purple-300 md:h-full md:p-3 md:rounded overflow-y-auto max-md:mb-12">
       <div className="bg-purple-400 w-full md:rounded-lg flex flex-col items-center p-3 gap-3">
         <h1 className="text-2xl font-semibold mb-3">Update Post</h1>
         <div className="w-full flex flex-col gap-3">
