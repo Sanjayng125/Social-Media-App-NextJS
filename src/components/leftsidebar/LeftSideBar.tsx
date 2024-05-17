@@ -12,7 +12,7 @@ const LeftSideBar = () => {
   const authLoading = status === "loading" || false;
 
   return (
-    <div className="bg-purple-300 h-full py-3 rounded relative">
+    <div className="bg-purple-300 h-full py-3 rounded relative dark:bg-white dark:bg-opacity-10">
       <div className="mb-3">
         <h1 className="text-2xl font-bold text-center">SastaGram</h1>
       </div>

@@ -20,12 +20,16 @@ export const GET = async (req: NextRequest) => {
 
             if (limit && +limit > 0 && populate) {
                 userDetails = await User.findOne({ _id: session.user.id }).select("followers following").sort({ "createdAt": -1 }).populate("followers", "avatar.url username").populate("following", "avatar username")
-                userDetails.followers = userDetails.followers.slice(0, parseInt(limit));
-                userDetails.following = userDetails.following.slice(0, parseInt(limit));
+                if (userDetails && userDetails !== null) {
+                    userDetails.followers = userDetails.followers.slice(0, parseInt(limit));
+                    userDetails.following = userDetails.following.slice(0, parseInt(limit));
+                }
             } else if (limit && +limit > 0) {
                 userDetails = await User.findOne({ _id: session.user.id }).select("followers following").sort({ "createdAt": -1 })
-                userDetails.followers = userDetails.followers.slice(0, parseInt(limit));
-                userDetails.following = userDetails.following.slice(0, parseInt(limit));
+                if (userDetails && userDetails !== null) {
+                    userDetails.followers = userDetails.followers.slice(0, parseInt(limit));
+                    userDetails.following = userDetails.following.slice(0, parseInt(limit));
+                }
             } else {
                 userDetails = await User.findOne({ _id: session.user.id }).select("followers following")
             }

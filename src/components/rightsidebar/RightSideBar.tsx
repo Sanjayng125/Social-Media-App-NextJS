@@ -16,8 +16,8 @@ const RightSideBar = () => {
       const api = await fetch(`/api/user/getFollows?limit=20&populate=true`);
       const res = await api.json();
 
-      setFollowers(res.userDetails.followers);
-      setFollowings(res.userDetails.following);
+      setFollowers(res?.userDetails?.followers);
+      setFollowings(res?.userDetails?.following);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -34,7 +34,7 @@ const RightSideBar = () => {
   }, [session?.user.username]);
 
   return (
-    <div className="bg-purple-300 h-full rounded p-2">
+    <div className="bg-purple-300 h-full rounded p-2 dark:bg-white dark:bg-opacity-10">
       {session && session.user ? (
         <div className="flex flex-col">
           {loading && <h2 className="text-xl text-center">Loading...</h2>}

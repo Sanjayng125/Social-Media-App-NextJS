@@ -66,20 +66,20 @@ const Create = () => {
   };
 
   return (
-    <div className="w-full bg-purple-300 md:h-[calc(100%-71px)] md:p-3 md:rounded overflow-y-auto">
-      <div className="bg-purple-400 w-full md:rounded-lg flex flex-col items-center p-3">
+    <div className="w-full bg-purple-300 md:h-[calc(100%-71px)] md:p-3 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10">
+      <div className="bg-purple-400 w-full md:rounded-lg flex flex-col items-center p-3 dark:bg-white dark:bg-opacity-20">
         <h1 className="text-2xl font-semibold mb-3">Create Post</h1>
         <div className="w-full flex flex-col gap-3">
           <input
             type="text"
-            className="p-3 w-full rounded-lg bg-purple-300 border text-white placeholder:opacity-70 placeholder:text-white font-semibold"
+            className="p-3 w-full rounded-lg bg-purple-300 border text-white placeholder:opacity-70 placeholder:text-white font-semibold dark:border dark:bg-transparent dark:text-white"
             placeholder="Caption"
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
           />
           <input
             type="text"
-            className="p-3 w-full rounded-lg bg-purple-300 border text-white placeholder:opacity-70 placeholder:text-white font-semibold"
+            className="p-3 w-full rounded-lg bg-purple-300 border text-white placeholder:opacity-70 placeholder:text-white font-semibold dark:border dark:bg-transparent dark:text-white"
             placeholder="Tags"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
@@ -130,7 +130,7 @@ const Create = () => {
             ))}
         </div>
         <button
-          className="bg-purple-300 p-2 rounded-lg w-full font-semibold disabled:opacity-80"
+          className="bg-purple-300 p-2 rounded-lg w-full font-semibold disabled:bg-opacity-50 dark:bg-slate-900"
           onClick={handleCreatePost}
           disabled={loading}
         >

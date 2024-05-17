@@ -50,12 +50,12 @@ const Profile = () => {
   }, [session?.user.username, pathname]);
 
   return (
-    <div className="flex justify-center bg-purple-300 h-full md:p-3 md:rounded overflow-y-auto">
+    <div className="flex justify-center bg-purple-300 h-full md:p-3 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10">
       {authLoading && (
         <h1 className="text-2xl font-semibold text-center">Loading...</h1>
       )}
       {!authLoading && session && (
-        <div className="w-full bg-purple-400 md:rounded-lg p-3 h-full overflow-y-auto">
+        <div className="w-full bg-purple-400 md:rounded-lg p-3 h-full overflow-y-auto dark:bg-white dark:bg-opacity-30">
           <div className="flex items-center gap-2 w-full max-sm:flex-col lg:flex-col relative">
             <Image
               src={session.user.avatar.url || "/noavatar.png"}
@@ -132,12 +132,12 @@ const Profile = () => {
               {loading && (
                 <h1 className="text-center font-semibold">Loading...</h1>
               )}
-              {!loading && showPosts && userPosts.length === 0 && (
+              {!loading && showPosts && userPosts?.length === 0 && (
                 <h1 className="text-white text-center text-xl">
                   No Posts Yet!
                 </h1>
               )}
-              {!loading && !showPosts && userLikedPosts.length === 0 && (
+              {!loading && !showPosts && userLikedPosts?.length === 0 && (
                 <h1 className="text-white text-center text-xl">
                   No Liked Posts Yet!
                 </h1>

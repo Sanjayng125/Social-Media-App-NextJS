@@ -117,7 +117,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
           <p className="text-sm">{format(postDetails.createdAt)}</p>
         </div>
       </div>
-      <div className="w-full h-min border-y-2 flex justify-center overflow-hidden bg-purple-500">
+      <div className="w-full h-min border-y-2 flex justify-center overflow-hidden bg-purple-500 dark:bg-white dark:bg-opacity-30">
         <Swiper
           className="w-full"
           pagination={{ type: "fraction" }}
@@ -150,7 +150,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
           <Like id={postDetails._id} />
         </div>
         <button
-          className="text-gray-800"
+          className="text-gray-800 dark:text-white"
           onClick={() => setShowComments(!showComments)}
         >
           View Comments
