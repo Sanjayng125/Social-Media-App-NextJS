@@ -48,7 +48,7 @@ const UserPosts = (posts: { posts: Post[] }) => {
               {pathname === "/profile" &&
                 session?.user &&
                 post?.createdBy === session?.user?.id && (
-                  <div className="absolute right-0 flex flex-col p-1 bg-white border rounded m-1">
+                  <div className="absolute right-0 flex flex-col p-1 bg-white border rounded m-1 dark:bg-slate-800">
                     <button
                       className="text-xl hover:scale-110"
                       onClick={() => {
