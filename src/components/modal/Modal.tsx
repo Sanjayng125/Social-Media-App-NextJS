@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { format } from "timeago.js";
 import Like from "../like/Like";
 
-export default function Modal2({
+export default function Modal({
   posts,
   postComments,
   getPostComments,
@@ -75,7 +75,7 @@ export default function Modal2({
         <>
           {/* Post */}
           <div className="border-r-2 border-white w-[65%] h-full flex flex-col justify-between">
-            <div className="w-full bg-purple-300 h-full flex items-center overflow-hidden">
+            <div className="w-full bg-purple-300 h-full flex items-center overflow-hidden dark:bg-slate-800 dark:bg-opacity-50">
               <Swiper
                 pagination={{ type: "fraction" }}
                 centeredSlides={true}
@@ -103,7 +103,7 @@ export default function Modal2({
                   ))}
               </Swiper>
             </div>
-            <div className="bg-purple-400 text-white w-full p-4 flex justify-between items-center">
+            <div className="bg-purple-400 text-white w-full p-4 flex justify-between items-center dark:bg-slate-900">
               <h1 className="sm:text-2xl font-bold">{posts?.post?.caption}</h1>
               <div className="flex gap-3 items-center relative">
                 <Like id={posts.post?._id || ""} />

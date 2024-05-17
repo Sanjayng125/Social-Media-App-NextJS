@@ -14,7 +14,7 @@ const Login = () => {
   // }, [formState]);
 
   return (
-    <div className="h-full flex flex-col items-center justify-center bg-gradient-to-t from-pink-500 to-purple-700 md:rounded">
+    <div className="h-full flex flex-col items-center justify-center bg-gradient-to-t from-pink-500 to-purple-700 md:rounded dark:from-slate-800 dark:to-slate-500">
       <div className="flex flex-col text-center gap-5 p-3 rounded-lg bg-white bg-opacity-50 w-[90%] max-w-[400px]">
         <h1 className="text-2xl font-bold text-center text-white">
           Welcome Back To SastaGram
@@ -24,13 +24,13 @@ const Login = () => {
           <input
             type="email"
             placeholder="Email"
-            className="p-3 rounded-lg"
+            className="p-3 rounded-lg bg-white text-black"
             name="email"
           />
           <input
             type="text"
             placeholder="Password"
-            className="p-3 rounded-lg"
+            className="p-3 rounded-lg bg-white text-black"
             name="password"
           />
           <button className="bg-white text-white bg-opacity-50 p-3 rounded-lg font-bold text-xl hover:opacity-90">

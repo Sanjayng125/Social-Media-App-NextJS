@@ -10,7 +10,7 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
 
         const getSimilarPosts = queryParams.get("similarPosts") || false
 
-        const post = await Post.findById(params.id).populate("createdBy", "username _id")
+        const post = await Post.findById(params.id).populate("createdBy", "username _id avatar.url")
 
         if (post?.tags?.length > 0 && getSimilarPosts) {
             const similarPosts = await Post.find({ "tags": { $in: post.tags }, "_id": { $ne: params.id } })

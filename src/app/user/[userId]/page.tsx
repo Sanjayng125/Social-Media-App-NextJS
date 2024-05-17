@@ -73,12 +73,12 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
   };
 
   return (
-    <div className="flex flex-col justify-center bg-purple-300 h-full md:p-3 md:rounded overflow-y-auto">
+    <div className="flex flex-col justify-center bg-purple-300 h-full md:p-3 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10">
       {loading && (
         <h1 className="text-2xl font-semibold text-center">Loading...</h1>
       )}
       {userDetails !== null && (
-        <div className="w-full bg-purple-400 md:rounded-lg p-3 h-full overflow-y-auto">
+        <div className="w-full bg-purple-400 md:rounded-lg p-3 h-full overflow-y-auto dark:bg-white dark:bg-opacity-30">
           <div className="flex items-center gap-2 w-full max-sm:flex-col lg:flex-col relative">
             <Image
               src={userDetails?.avatar?.url || "/noavatar.png"}
@@ -140,7 +140,7 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
             </div>
           </div>
           <div className="mt-2 w-full flex flex-col border-t-2">
-            <div className="flex justify-evenly gap-2 bg-purple-300 text-[18px] font-semibold">
+            <div className="flex justify-evenly gap-2 bg-purple-300 text-[18px] font-semibold dark:bg-slate-800">
               Posts
             </div>
             <div className="w-full h-auto">

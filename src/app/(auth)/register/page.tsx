@@ -17,7 +17,7 @@ const Register = () => {
   }, [formState]);
 
   return (
-    <div className="h-full flex flex-col items-center justify-center bg-gradient-to-t from-pink-500 to-purple-700 md:rounded">
+    <div className="h-full flex flex-col items-center justify-center bg-gradient-to-t from-pink-500 to-purple-700 md:rounded dark:from-slate-800 dark:to-slate-500">
       <div className="flex flex-col text-center gap-5 p-3 rounded-lg bg-white bg-opacity-50 w-[90%] max-w-[400px]">
         <h1 className="text-2xl font-bold text-center text-white">
           Welcome To SastaGram
@@ -27,19 +27,19 @@ const Register = () => {
           <input
             type="text"
             placeholder="Username"
-            className="p-3 rounded-lg"
+            className="p-3 rounded-lg bg-white text-black"
             name="username"
           />
           <input
             type="email"
             placeholder="Email"
-            className="p-3 rounded-lg"
+            className="p-3 rounded-lg bg-white text-black"
             name="email"
           />
           <input
             type="text"
             placeholder="Password"
-            className="p-3 rounded-lg"
+            className="p-3 rounded-lg bg-white text-black"
             name="password"
           />
           <div className="w-full flex flex-col">
