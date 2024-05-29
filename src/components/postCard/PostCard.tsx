@@ -3,9 +3,9 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { FaShare, FaWindowClose } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { BiSend } from "react-icons/bi";
@@ -120,7 +120,11 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
       <div className="w-full h-min border-y-2 flex justify-center overflow-hidden bg-purple-500 dark:bg-white dark:bg-opacity-30">
         <Swiper
           className="w-full"
-          pagination={{ type: "fraction" }}
+          pagination={{
+            type: "bullets",
+            dynamicBullets: true,
+          }}
+          modules={[Pagination]}
           centeredSlides={true}
         >
           {postDetails &&

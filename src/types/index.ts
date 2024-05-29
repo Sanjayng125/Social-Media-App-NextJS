@@ -1,4 +1,4 @@
-import NextAuth, { DefaultSession } from "next-auth"
+import { DefaultSession } from "next-auth"
 
 // Declaring Next auth session to add extra fields id and username for typescript.
 declare module "next-auth" {
