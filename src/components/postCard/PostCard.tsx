@@ -103,7 +103,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
             <FaShare
               className="text-xl"
               onClick={() => {
-                navigator.clipboard.writeText(`https://social-media-app-next-js.vercel.app/post/${postDetails?._id}`);
+                navigator.clipboard.writeText(`${window.location.origin}/post/${postDetails?._id}`);
                 setCopied(true);
                 setTimeout(() => {
                   setCopied(false);
