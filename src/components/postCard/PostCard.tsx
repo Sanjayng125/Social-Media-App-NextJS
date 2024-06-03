@@ -103,9 +103,13 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
             <FaShare
               className="text-xl"
               onClick={() => {
+<<<<<<< HEAD
                 navigator.clipboard.writeText(
                   `${window.location.origin}/post/${postDetails?._id}`
                 );
+=======
+                navigator.clipboard.writeText(`${window.location.origin}/post/${postDetails?._id}`);
+>>>>>>> cff0acd707ab7343c4980e89d4f2811943d77fae
                 setCopied(true);
                 setTimeout(() => {
                   setCopied(false);
