@@ -74,7 +74,7 @@ export default function Like({ id }: { id: string }) {
               />
             ))}
           {likes.length > 0 && (
-            <p className="text-gray-500">
+            <p className="text-white">
               {likes.length} {likes.length === 1 ? "like" : "likes"}
             </p>
           )}

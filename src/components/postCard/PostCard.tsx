@@ -103,7 +103,9 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
             <FaShare
               className="text-xl"
               onClick={() => {
-                navigator.clipboard.writeText(window.location.href);
+                navigator.clipboard.writeText(
+                  `${window.location.origin}/post/${postDetails?._id}`
+                );
                 setCopied(true);
                 setTimeout(() => {
                   setCopied(false);
@@ -154,7 +156,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
           <Like id={postDetails._id} />
         </div>
         <button
-          className="text-gray-800 dark:text-white"
+          className="text-white"
           onClick={() => setShowComments(!showComments)}
         >
           View Comments

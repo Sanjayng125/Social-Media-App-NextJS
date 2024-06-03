@@ -9,7 +9,7 @@ import { auth } from "@/lib/auth";
 import { ThemeProviders } from "./themeProvider";
 
 export const metadata: Metadata = {
-  title: "Welcome To SastaGram",
+  title: "Home: Welcome To SastaGram",
   description:
     "This is a simple App Like Instagram Built Using Next JS, MongoDB and Cloudinary",
 };
