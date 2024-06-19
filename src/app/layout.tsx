@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import LeftSideBar from "@/components/leftsidebar/LeftSideBar";
 import RightSideBar from "@/components/rightsidebar/RightSideBar";
@@ -9,9 +9,14 @@ import { auth } from "@/lib/auth";
 import { ThemeProviders } from "./themeProvider";
 
 export const metadata: Metadata = {
+  manifest: "/manifest.json",
   title: "Home: Welcome To SastaGram",
   description:
     "This is a simple App Like Instagram Built Using Next JS, MongoDB and Cloudinary",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
 };
 
 export default async function RootLayout({

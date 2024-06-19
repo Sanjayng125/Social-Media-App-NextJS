@@ -1,0 +1,29 @@
+{
+  "id": "1",
+  "name": "SataGram",
+  "short_name": "SataGram",
+  "description": "This is a simple instagram clone like social media app",
+  "icons": [
+    {
+      "src": "/img-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/img-384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/img-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
