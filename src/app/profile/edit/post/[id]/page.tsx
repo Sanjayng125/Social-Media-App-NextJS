@@ -80,13 +80,13 @@ const EditPost = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <div className="w-full bg-purple-300 md:h-full md:p-3 md:rounded overflow-y-auto max-md:mb-12">
-      <div className="bg-purple-400 w-full md:rounded-lg flex flex-col items-center p-3 gap-3">
+    <div className="w-full bg-purple-300 md:h-full md:p-3 md:rounded overflow-y-auto max-md:mb-12 dark:bg-white dark:bg-opacity-10">
+      <div className="bg-purple-400 w-full md:rounded-lg flex flex-col items-center p-3 gap-3 dark:bg-white dark:bg-opacity-30">
         <h1 className="text-2xl font-semibold mb-3">Update Post</h1>
         <div className="w-full flex flex-col gap-3">
           <input
             type="text"
-            className="p-3 w-full rounded-lg bg-purple-300 border text-white placeholder:opacity-70 placeholder:text-white font-semibold"
+            className="p-3 w-full rounded-lg bg-purple-300 border text-white placeholder:opacity-70 placeholder:text-white font-semibold dark:border dark:bg-transparent"
             placeholder="Caption"
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
@@ -113,14 +113,14 @@ const EditPost = ({ params }: { params: { id: string } }) => {
           </div>
           <input
             type="text"
-            className="p-3 w-full rounded-lg bg-purple-300 border text-white placeholder:opacity-70 placeholder:text-white font-semibold"
+            className="p-3 w-full rounded-lg bg-purple-300 border text-white placeholder:opacity-70 placeholder:text-white font-semibold dark:border dark:bg-transparent"
             placeholder="Tags"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
           />
         </div>
         <button
-          className="bg-purple-300 p-2 rounded-lg w-full font-semibold disabled:opacity-80"
+          className="bg-purple-300 p-2 rounded-lg w-full font-semibold disabled:opacity-80 dark:bg-slate-900"
           onClick={handleUpdatePost}
           disabled={
             loading ||
