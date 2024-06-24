@@ -1,9 +1,9 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { HiOutlineHeart, HiHeart } from "react-icons/hi";
+import Spinner2 from "../loader/Spinner2";
 
 export default function Like({ id }: { id: string }) {
   const { data: session } = useSession();
@@ -16,7 +16,6 @@ export default function Like({ id }: { id: string }) {
       setLikeLoading(true);
       const api = await fetch(`/api/post/likes/${id}`);
       const res = await api.json();
-      // console.log(res.postLikes.likes);
       setLikes(res.postLikes.likes);
       setLikeLoading(false);
     } catch (error) {
@@ -61,7 +60,7 @@ export default function Like({ id }: { id: string }) {
         <div className="flex items-center gap-2">
           {session &&
             (likeLoading ? (
-              <Image src={"/small-spinner.gif"} alt="" width={30} height={30} />
+              <Spinner2 width={30} height={30} border={2} />
             ) : hasLiked ? (
               <HiHeart
                 onClick={handleLikePost}

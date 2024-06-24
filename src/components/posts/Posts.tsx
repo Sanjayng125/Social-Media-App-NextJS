@@ -1,11 +1,38 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import PostCard from "../postCard/PostCard";
 import { Post } from "@/types";
 
-const Posts = (posts: { posts: Post[] }) => {
+const Posts = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const getPosts = async () => {
+    try {
+      setLoading(true);
+      const api = await fetch("/api/getPosts");
+      const res = await api.json();
+
+      setPosts(res.posts);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
   return (
     <div className="w-full max-md:min-h-full flex flex-col gap-3 items-center mt-3 bg-purple-400 p-3 md:rounded-lg dark:bg-white dark:bg-opacity-10">
-      {posts.posts.map((post, i) => (
+      {posts && posts.length <= 0 && !loading && (
+        <h1 className="text-xl text-center">No Grams Yet!...</h1>
+      )}
+      {loading && <h1 className="text-xl text-center">Loading...</h1>}
+      {posts.map((post, i) => (
         <PostCard postDetails={post} key={i} />
       ))}
     </div>

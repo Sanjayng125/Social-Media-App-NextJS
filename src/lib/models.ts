@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
+        required: true,
     },
     email: {
         type: String,
@@ -11,6 +12,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
+        required: true,
     },
     isAdmin: {
         type: Boolean,
@@ -82,6 +84,25 @@ const commentSchema = new mongoose.Schema({
     },
 }, { timestamps: true })
 
+const storySchema = new mongoose.Schema({
+    imgs: {
+        type: [{ url: { type: String }, public_id: { type: String } }],
+        required: true
+    },
+    expiresAt: {
+        type: Date,
+        required: true
+    },
+    user: {
+        type: {
+            userId: { type: String, required: true },
+            username: { type: String, required: true },
+            avatar: { type: String, required: true },
+        }
+    },
+}, { timestamps: true })
+
 export const User = mongoose.models.User || mongoose.model("User", userSchema)
 export const Post = mongoose.models.Post || mongoose.model("Post", postSchema)
 export const Comment = mongoose.models.Comment || mongoose.model("Comment", commentSchema)
+export const Story = mongoose.models.Story || mongoose.model("Story", storySchema)

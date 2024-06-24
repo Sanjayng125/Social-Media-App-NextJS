@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Comment, imageProps, PostPageProps } from "@/types";
-import { FaHeart, FaShare } from "react-icons/fa";
+import { FaShare } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -13,6 +13,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { format } from "timeago.js";
 import Like from "../like/Like";
+import Spinner2 from "../loader/Spinner2";
 
 export default function Modal({
   posts,
@@ -66,15 +67,15 @@ export default function Modal({
 
   return (
     <Wrapper>
-      {loading && (
-        <h1 className="w-full text-center text-xl font-semibold text-white">
-          Loading...
-        </h1>
-      )}
       {posts !== null && (
         <>
           {/* Post */}
           <div className="border-r-2 border-white w-[65%] h-full flex flex-col justify-between">
+            {loading && (
+              <h1 className="w-full text-center text-xl font-semibold text-white">
+                Loading...
+              </h1>
+            )}
             <div className="w-full bg-purple-300 h-full flex items-center overflow-hidden dark:bg-slate-800 dark:bg-opacity-50">
               <Swiper
                 pagination={{ type: "fraction" }}
@@ -92,8 +93,6 @@ export default function Modal({
                         <Image
                           src={imgSrc.url}
                           alt={""}
-                          // layout="fill"
-                          // objectFit="contain" // Changed to "contain" to fit the image inside the container
                           fill
                           className="object-contain"
                           priority
@@ -145,12 +144,7 @@ export default function Modal({
                 disabled={commentsLoading || comment === ""}
               >
                 {commentsLoading ? (
-                  <Image
-                    src={"/small-spinner.gif"}
-                    alt=""
-                    width={25}
-                    height={25}
-                  />
+                  <Spinner2 width={15} height={15} border={2} />
                 ) : (
                   <BiSend />
                 )}
@@ -163,12 +157,7 @@ export default function Modal({
             )}
             {commentsLoading && (
               <div className="w-full flex justify-center mt-2">
-                <Image
-                  src={"/small-spinner.gif"}
-                  alt=""
-                  width={40}
-                  height={40}
-                />
+                <Spinner2 width={40} height={40} border={2} />
               </div>
             )}
             {postComments?.length > 0 &&

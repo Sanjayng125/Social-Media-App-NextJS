@@ -25,8 +25,6 @@ export const PATCH = async (_req: Request, { params }: { params: { id: string } 
                 "likes": { $elemMatch: { $eq: session.user.id } }
             }).select("likes")
 
-            console.log(postLiked);
-
 
             if (postLiked !== null) {
                 await Post.updateOne({ _id: params.id }, { $pull: { likes: session.user.id } })

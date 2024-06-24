@@ -27,6 +27,27 @@ export interface IUser {
     posts: Post[],
 }
 
+export interface SingleStoryProps {
+    _id: string
+    imgs: [{
+        url: string
+    }]
+    expiresAt: string
+    user: {
+        userId: string
+        username: string
+        avatar: string,
+    }
+    createdAt: string
+}
+
+export interface MultipleStoryProps {
+    userId: string
+    avatar: string,
+    username: string
+    stories: SingleStoryProps[]
+}
+
 export interface Comment {
     commentBy: {
         _id: string,

@@ -12,6 +12,7 @@ import { BiSend } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import { format } from "timeago.js";
 import Like from "../like/Like";
+import Spinner2 from "../loader/Spinner2";
 
 const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
   const { data: session } = useSession();
@@ -193,12 +194,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
               disabled={commentsLoading || comment === ""}
             >
               {commentsLoading ? (
-                <Image
-                  src={"/small-spinner.gif"}
-                  alt=""
-                  width={25}
-                  height={25}
-                />
+                <Spinner2 width={25} height={25} border={2} />
               ) : (
                 <BiSend />
               )}
@@ -219,7 +215,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
         )}
         {commentsLoading && (
           <div className="w-full flex justify-center mt-2">
-            <Image src={"/small-spinner.gif"} alt="" width={40} height={40} />
+            <Spinner2 width={50} height={50} border={3} />
           </div>
         )}
         {comments?.length > 0 &&
