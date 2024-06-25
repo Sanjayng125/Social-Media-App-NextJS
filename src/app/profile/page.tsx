@@ -50,12 +50,12 @@ const Profile = () => {
   }, [session?.user.username, pathname]);
 
   return (
-    <div className="flex justify-center bg-purple-300 h-full md:p-3 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10">
+    <div className="flex justify-center bg-white shadow-2xl border h-full md:p-3 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10 dark:border-none">
       {authLoading && (
         <h1 className="text-2xl font-semibold text-center">Loading...</h1>
       )}
       {!authLoading && session && (
-        <div className="w-full bg-purple-400 md:rounded-lg p-3 h-full overflow-y-auto dark:bg-white dark:bg-opacity-30">
+        <div className="w-full bg-black bg-opacity-10 md:rounded-lg p-3 h-full overflow-y-auto dark:bg-white dark:bg-opacity-30">
           <div className="flex items-center gap-2 w-full max-sm:flex-col lg:flex-col relative">
             <Image
               src={session.user.avatar.url || "/noavatar.png"}
@@ -109,7 +109,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="mt-2 w-full flex flex-col border-t-2">
+          <div className="mt-2 w-full flex flex-col">
             <div className="flex justify-evenly gap-2">
               <button
                 className={`hover:bg-white hover:bg-opacity-50 w-full font-semibold ${

@@ -25,7 +25,7 @@ export default function Story() {
   }, [session?.user.username]);
 
   return (
-    <div className="p-4 text-white bg-purple-400 dark:bg-white dark:bg-opacity-30 md:rounded-lg overflow-x-auto text-xs scrollbar-hide">
+    <div className="p-4 text-black bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-30 dark:text-white md:rounded-lg overflow-x-auto text-xs scrollbar-hide">
       <div className="flex gap-5 w-max">
         <StoryList stories={stories} getStories={getStories} />
       </div>

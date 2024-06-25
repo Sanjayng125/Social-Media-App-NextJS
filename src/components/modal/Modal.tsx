@@ -72,11 +72,11 @@ export default function Modal({
           {/* Post */}
           <div className="border-r-2 border-white w-[65%] h-full flex flex-col justify-between">
             {loading && (
-              <h1 className="w-full text-center text-xl font-semibold text-white">
+              <h1 className="w-full text-center text-xl font-semibold">
                 Loading...
               </h1>
             )}
-            <div className="w-full bg-purple-300 h-full flex items-center overflow-hidden dark:bg-slate-800 dark:bg-opacity-50">
+            <div className="w-full bg-white bg-opacity-70 h-full flex items-center overflow-hidden dark:bg-slate-800 dark:bg-opacity-65">
               <Swiper
                 pagination={{ type: "fraction" }}
                 centeredSlides={true}
@@ -102,7 +102,7 @@ export default function Modal({
                   ))}
               </Swiper>
             </div>
-            <div className="bg-purple-400 text-white w-full p-4 flex justify-between items-center dark:bg-slate-900">
+            <div className="bg-white w-full p-4 flex justify-between items-center dark:bg-slate-900">
               <h1 className="sm:text-2xl font-bold">{posts?.post?.caption}</h1>
               <div className="flex gap-3 items-center relative">
                 <Like id={posts.post?._id || ""} />
@@ -127,19 +127,19 @@ export default function Modal({
             </div>
           </div>
           {/* comment */}
-          <div className="bg-slate-500 flex flex-col overflow-y-auto w-[35%] h-full">
-            <h1 className="px-2 font-semibold max-sm:text-sm">Comments:</h1>
+          <div className="bg-white flex flex-col overflow-y-auto w-[35%] h-full dark:bg-slate-600">
+            <h1 className="px-2 font-semibold max-sm:text-sm">Comments</h1>
             <div className="w-full flex my-1 border-y border-y-white">
               <input
                 type="text"
-                className="w-full bg-slate-600 text-white outline-none text-[8px] sm:text-sm px-1"
+                className="w-full bg-black bg-opacity-10 outline-none text-[8px] sm:text-sm px-1"
                 placeholder="Comment Something..."
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 onKeyDown={handleKeyDown}
               />
               <button
-                className="bg-slate-600 p-1 px-2 sm:px-4 border-l border-l-white disabled:opacity-50"
+                className="bg-black bg-opacity-10 p-1 px-2 sm:px-4 border-l border-l-white disabled:opacity-50"
                 onClick={() => newComment()}
                 disabled={commentsLoading || comment === ""}
               >
@@ -172,7 +172,7 @@ export default function Modal({
                         height={28}
                         className="w-[20px] h-[20px] sm:w-[27px] sm:h-[27px] rounded-full object-cover"
                       />
-                      <span className="text-[8px] sm:text-sm">
+                      <span className="text-[8px] sm:text-sm font-semibold">
                         {comment.commentBy.username}
                       </span>
                     </div>

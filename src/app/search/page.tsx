@@ -48,13 +48,13 @@ const Search = () => {
   };
 
   return (
-    <div className="w-full bg-purple-300 h-full p-2 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10">
+    <div className="w-full bg-white shadow-2xl border h-full p-2 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10 dark:border-none">
       <div className="flex gap-2 mb-2">
         <button
           className={`border-2 rounded-3xl px-2 py-1 transition-all duration-150 ${
             show === "posts"
-              ? "text-black bg-purple-300 shadow-lg dark:bg-slate-900 dark:text-white dark:shadow-white dark:shadow-sm"
-              : "text-white bg-purple-400 dark:bg-transparent"
+              ? "bg-white shadow-lg dark:bg-slate-900 dark:shadow-white dark:shadow-sm"
+              : "bg-black bg-opacity-10 dark:bg-transparent"
           }`}
           onClick={() => {
             setShow("posts");
@@ -65,8 +65,8 @@ const Search = () => {
         <button
           className={`border-2 rounded-3xl px-2 py-1 transition-all duration-150 ${
             show === "peoples"
-              ? "text-black bg-purple-300 shadow-lg dark:bg-slate-900 dark:text-white dark:shadow-white dark:shadow-sm"
-              : "text-white bg-purple-400 dark:bg-transparent"
+              ? "bg-white shadow-lg dark:bg-slate-900 dark:text-white dark:shadow-white dark:shadow-sm"
+              : "bg-black bg-opacity-10 dark:bg-transparent"
           }`}
           onClick={() => {
             setShow("peoples");
@@ -119,7 +119,7 @@ const Search = () => {
               <Link
                 href={`/user/${user?._id}`}
                 key={i}
-                className="w-full flex items-center gap-2 border rounded-md p-2 shadow-md bg-purple-400 dark:bg-slate-800"
+                className="w-full flex items-center gap-2 border rounded-md p-2 shadow-md bg-white dark:bg-slate-800 hover:bg-black hover:bg-opacity-10 dark:hover:bg-opacity-50"
               >
                 <Image
                   src={user.avatar.url || "/noavatar.png"}

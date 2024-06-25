@@ -77,7 +77,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
 
   return (
     <div className="w-full flex flex-col items-center border rounded-lg relative overflow-hidden">
-      <div className="w-full flex justify-between items-center px-3 text-white">
+      <div className="w-full flex justify-between items-center px-3">
         <Link
           href={
             session?.user
@@ -95,7 +95,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
             height={40}
             className="w-[40px] h-[40px] rounded-full mb-2 border object-cover"
           />
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-semibold">
             {postDetails?.createdBy?.username}
           </h2>
         </Link>
@@ -115,12 +115,14 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
             />
           </div>
           {copied && (
-            <p className="absolute z-10 rounded-md bg-green-500 p-2">copied!</p>
+            <p className="absolute z-10 rounded-md bg-blue-500 p-2 text-white">
+              copied!
+            </p>
           )}
           <p className="text-sm">{format(postDetails.createdAt)}</p>
         </div>
       </div>
-      <div className="w-full h-min border-y-2 flex justify-center overflow-hidden bg-purple-500 dark:bg-white dark:bg-opacity-30">
+      <div className="w-full h-min flex justify-center overflow-hidden bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-30">
         <Swiper
           className="w-full"
           pagination={{
@@ -153,11 +155,11 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
       </div>
       <div className="flex justify-between w-full p-2">
         <div className="flex items-center gap-2">
-          <h1 className="text-white">{postDetails?.caption}</h1>
+          <h1 className="font-semibold">{postDetails?.caption}</h1>
           <Like id={postDetails._id} />
         </div>
         <button
-          className="text-white"
+          className="border p-1 rounded hover:bg-black hover:bg-opacity-10"
           onClick={() => setShowComments(!showComments)}
         >
           View Comments
@@ -165,7 +167,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
       </div>
       {/* comment section */}
       <div
-        className={`w-full h-full z-10 bg-slate-500 text-white transition-all duration-300 flex flex-col absolute ${
+        className={`w-full h-full z-10 bg-white dark:bg-slate-500 transition-all duration-300 flex flex-col absolute ${
           showComments ? "top-0 left-0" : "translate-y-[100%]"
         }`}
       >
@@ -173,23 +175,23 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
           Comments
           <button
             onClick={() => setShowComments(!showComments)}
-            className="p-1 text-xl"
+            className="p-1 text-xl text-black dark:text-white text-opacity-60"
           >
             <FaWindowClose />
           </button>
         </div>
         {session?.user ? (
-          <div className="w-full flex border-y border-y-white">
+          <div className="w-full flex">
             <input
               type="text"
-              className="w-full bg-slate-600 text-white outline-none text-[10px] sm:text-sm py-2 px-3"
+              className="w-full bg-black bg-opacity-10 dark:bg-slate-600 outline-none text-[10px] sm:text-sm py-2 px-3"
               placeholder="Comment Something..."
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               onKeyDown={handleKeyDown}
             />
             <button
-              className="bg-slate-600 p-1 px-2 sm:px-4 border-l border-l-white disabled:opacity-50"
+              className="bg-black bg-opacity-10 hover:bg-opacity-30 dark:bg-slate-600 dark:hover:bg-slate-700 p-1 px-2 sm:px-4 border-l border-l-white disabled:opacity-50"
               onClick={() => newComment()}
               disabled={commentsLoading || comment === ""}
             >

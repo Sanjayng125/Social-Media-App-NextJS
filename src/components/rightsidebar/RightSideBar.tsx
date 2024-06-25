@@ -34,7 +34,7 @@ const RightSideBar = () => {
   }, [session?.user.username]);
 
   return (
-    <div className="bg-purple-300 h-full rounded p-2 dark:bg-white dark:bg-opacity-10">
+    <div className="bg-white shadow-2xl border h-full rounded p-2 dark:bg-white dark:bg-opacity-10 dark:border-none">
       {session && session.user ? (
         <div className="flex flex-col">
           {loading && <h2 className="text-xl text-center">Loading...</h2>}

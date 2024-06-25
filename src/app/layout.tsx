@@ -27,7 +27,7 @@ export default async function RootLayout({
   const session = await auth();
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="flex w-full justify-center bg-purple-400 dark:bg-slate-800">
+      <body className="flex w-full justify-center bg-white dark:bg-slate-800">
         <ThemeProviders>
           <AuthProvider session={session}>
             <div className="flex md:p-2 h-screen gap-3 max-w-7xl w-full">

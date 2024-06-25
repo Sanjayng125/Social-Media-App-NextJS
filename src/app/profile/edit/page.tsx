@@ -1,5 +1,4 @@
 "use client";
-import { profileUpdate, updatePassword, updateProfilePhoto } from "@/lib/user";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
@@ -155,12 +154,12 @@ const Edit = () => {
   };
 
   return (
-    <div className="bg-purple-300 w-full h-full md:rounded md:p-3 text-white dark:bg-white dark:bg-opacity-10">
+    <div className="bg-white shadow-2xl border w-full h-full md:rounded md:p-3 dark:bg-white dark:bg-opacity-10 dark:border-none">
       {authLoading && (
         <h1 className="text-2xl font-bold text-center">Loading...</h1>
       )}
       {!authLoading && session?.user && (
-        <div className="bg-purple-400 w-full h-full md:rounded flex flex-col items-center p-2 dark:bg-white dark:bg-opacity-30">
+        <div className="bg-black bg-opacity-10 w-full h-full md:rounded flex flex-col items-center p-2 dark:bg-white dark:bg-opacity-30">
           <div className="flex flex-col gap-2 w-full items-center">
             <h1 className="text-2xl font-semibold">Update Profile</h1>
             <div className="flex flex-col items-center relative overflow-hidden rounded-full">
@@ -216,7 +215,7 @@ const Edit = () => {
             <input
               type="text"
               placeholder="Username"
-              className="w-4/5 p-2 rounded-md text-black dark:border dark:bg-transparent dark:text-white"
+              className="w-4/5 p-2 rounded-md dark:border dark:bg-transparent"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               disabled={loading}
@@ -225,7 +224,7 @@ const Edit = () => {
               <p className="text-red-500">{resState?.message}</p>
             )}
             <button
-              className="bg-purple-300 p-2 rounded mb-3 font-semibold disabled:opacity-50 dark:bg-slate-900"
+              className="bg-white hover:bg-opacity-50 dark:hover:bg-opacity-50 p-2 rounded mb-3 font-semibold disabled:opacity-50 dark:bg-slate-900"
               disabled={
                 loading ||
                 username.trim() === currentUsername ||
@@ -274,7 +273,7 @@ const Edit = () => {
               disabled={loading}
             />
             <button
-              className="bg-purple-300 p-2 rounded font-semibold disabled:opacity-50 dark:bg-slate-900"
+              className="bg-white hover:bg-opacity-50 dark:hover:bg-opacity-50 p-2 rounded font-semibold disabled:opacity-50 dark:bg-slate-900"
               disabled={loading || oldPassword === "" || newPassword === ""}
             >
               {loading ? "Loading..." : "Update"}

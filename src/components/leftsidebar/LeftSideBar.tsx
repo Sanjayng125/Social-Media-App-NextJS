@@ -12,7 +12,7 @@ const LeftSideBar = () => {
   const authLoading = status === "loading" || false;
 
   return (
-    <div className="bg-purple-300 h-full py-3 rounded relative dark:bg-white dark:bg-opacity-10">
+    <div className="bg-white shadow-2xl border h-full py-3 rounded relative dark:bg-white dark:bg-opacity-10 dark:border-none">
       <div className="mb-3">
         <h1 className="text-2xl font-bold text-center">SastaGram</h1>
       </div>
@@ -45,8 +45,9 @@ const LeftSideBar = () => {
       )}
       <ul className="p-3">
         <li
-          className={`w-full p-1 font-semibold text-lg hover:bg-white hover:bg-opacity-50 my-1 rounded-lg ${
-            path === "/" && "bg-white bg-opacity-50"
+          className={`w-full p-1 font-semibold text-lg hover:bg-black hover:bg-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-50 my-1 rounded-lg ${
+            path === "/" &&
+            "bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-50"
           }`}
         >
           <Link href={"/"} className="w-full">
@@ -54,8 +55,9 @@ const LeftSideBar = () => {
           </Link>
         </li>
         <li
-          className={`w-full p-1 font-semibold text-lg hover:bg-white hover:bg-opacity-50 my-1 rounded-lg ${
-            path === "/explore" && "bg-white bg-opacity-50"
+          className={`w-full p-1 font-semibold text-lg hover:bg-black hover:bg-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-50 my-1 rounded-lg ${
+            path === "/explore" &&
+            "bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-50"
           }`}
         >
           <Link href={"/explore"} className="w-full">
@@ -65,8 +67,9 @@ const LeftSideBar = () => {
         {session?.user && (
           <>
             <li
-              className={`w-full p-1 font-semibold text-lg hover:bg-white hover:bg-opacity-50 my-1 rounded-lg ${
-                path === "/profile" && "bg-white bg-opacity-50"
+              className={`w-full p-1 font-semibold text-lg hover:bg-black hover:bg-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-50 my-1 rounded-lg ${
+                path === "/profile" &&
+                "bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-50"
               }`}
             >
               <Link href={"/profile"} className="w-full">
@@ -74,8 +77,9 @@ const LeftSideBar = () => {
               </Link>
             </li>
             <li
-              className={`w-full p-1 font-semibold text-lg hover:bg-white hover:bg-opacity-50 my-1 rounded-lg ${
-                path === "/create" && "bg-white bg-opacity-50"
+              className={`w-full p-1 font-semibold text-lg hover:bg-black hover:bg-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-50 my-1 rounded-lg ${
+                path === "/create" &&
+                "bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-50"
               }`}
             >
               <Link href={"/create"} className="w-full">

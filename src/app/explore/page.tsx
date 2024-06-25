@@ -29,7 +29,7 @@ const Explore = () => {
   }, []);
 
   return (
-    <div className="bg-purple-300 w-full h-full md:rounded p-3 overflow-y-auto dark:bg-white dark:bg-opacity-10">
+    <div className="bg-white shadow-2xl border w-full h-full md:rounded p-3 overflow-y-auto dark:bg-white dark:bg-opacity-10 dark:border-none ">
       <h1 className="text-2xl font-semibold mb-3">Explore</h1>
       <hr />
       {!loading && !posts && (

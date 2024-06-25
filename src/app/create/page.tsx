@@ -66,27 +66,27 @@ const Create = () => {
   };
 
   return (
-    <div className="w-full bg-purple-300 md:h-[calc(100%-71px)] md:p-3 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10">
-      <div className="bg-purple-400 w-full md:rounded-lg flex flex-col items-center p-3 dark:bg-white dark:bg-opacity-20">
+    <div className="w-full bg-white shadow-2xl border md:h-[calc(100%-71px)] md:p-3 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10 dark:border-none">
+      <div className="bg-black bg-opacity-10 w-full md:rounded-lg flex flex-col items-center p-3 dark:bg-white dark:bg-opacity-20">
         <h1 className="text-2xl font-semibold mb-3">Create Post</h1>
         <div className="w-full flex flex-col gap-3">
           <input
             type="text"
-            className="p-3 w-full rounded-lg bg-purple-300 border text-white placeholder:opacity-70 placeholder:text-white font-semibold dark:border dark:bg-transparent dark:text-white"
+            className="p-3 w-full rounded-lg border font-semibold dark:border dark:bg-transparent"
             placeholder="Caption"
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
           />
           <input
             type="text"
-            className="p-3 w-full rounded-lg bg-purple-300 border text-white placeholder:opacity-70 placeholder:text-white font-semibold dark:border dark:bg-transparent dark:text-white"
+            className="p-3 w-full rounded-lg border font-semibold dark:border dark:bg-transparent"
             placeholder="Tags"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
           />
           <input
             type="file"
-            className="p-3 w-full rounded-lg bg-purple-300 border text-white placeholder:text-white font-semibold hidden"
+            hidden
             placeholder="Upload Images"
             multiple
             accept="image/*"
@@ -100,11 +100,11 @@ const Create = () => {
           />
           <button
             type="button"
-            className="w-full rounded-lg border-[3px] border-dashed h-32 flex justify-center items-center disabled:opacity-50"
+            className="w-full rounded-lg border-white border-4 dark:border-opacity-70 border-dashed h-32 flex justify-center items-center disabled:opacity-50"
             onClick={() => imgInputRef?.current?.click()}
             disabled={loading}
           >
-            <span className="py-4 px-8 max-xsm:py-2 max-xsm:px-4 rounded-lg bg-gray-200 bg-opacity-70 flex justify-center items-center gap-2 text-2xl">
+            <span className="py-4 px-8 max-xsm:py-2 max-xsm:px-4 rounded-lg bg-white bg-opacity-70 flex justify-center items-center gap-2 text-2xl hover:bg-opacity-50 dark:hover:bg-opacity-50">
               Choose <HiPhoto />
             </span>
           </button>
@@ -130,7 +130,7 @@ const Create = () => {
             ))}
         </div>
         <button
-          className="bg-purple-300 p-2 rounded-lg w-full font-semibold disabled:bg-opacity-50 dark:bg-slate-900"
+          className="bg-white hover:bg-opacity-50 dark:hover:bg-opacity-50 p-2 rounded-lg w-full font-semibold disabled:bg-opacity-50 dark:bg-slate-900"
           onClick={handleCreatePost}
           disabled={loading}
         >

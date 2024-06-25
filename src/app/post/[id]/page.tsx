@@ -31,14 +31,14 @@ const PostPage = ({ params }: { params: { id: string } }) => {
   }, [params]);
 
   return (
-    <div className="w-full bg-purple-300 h-full md:p-2 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10">
-      <div className="w-full max-md:min-h-full flex flex-col gap-3 items-center mt-3 bg-purple-400 p-3 md:rounded-lg max-md:mb-12 dark:bg-white dark:bg-opacity-20">
+    <div className="w-full bg-white shadow-2xl border h-full md:p-2 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10 dark:border-none">
+      <div className="w-full max-md:min-h-full flex flex-col gap-3 items-center mt-3 p-3 md:rounded-lg max-md:mb-12">
         <div className="w-full">
           <button
-            className="bg-purple-300 p-1 rounded-full dark:bg-white dark:bg-opacity-10"
+            className="bg-black bg-opacity-10 p-1 rounded-full dark:bg-white dark:bg-opacity-10"
             onClick={() => router.back()}
           >
-            <FaArrowAltCircleLeft className="text-xl text-purple-400 dark:text-white" />
+            <FaArrowAltCircleLeft className="text-3xl text-white dark:text-white" />
           </button>
         </div>
         <hr />
