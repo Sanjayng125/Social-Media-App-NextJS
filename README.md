@@ -6,7 +6,7 @@ a simple instagram clone-like app.
 ## Home Page
 ![Screenshot 2024-06-25 175212](https://github.com/Sanjayng125/Social-Media-App-NextJS/assets/106653066/767376d8-8594-4f9c-8565-fac8ff2311ac)
 ## Dark Mode
-![Screenshot (20)](https://github.com/Sanjayng125/Social-Media-App-NextJS/assets/106653066/ff83792d-ff2d-4766-8905-0e04dec1ae37)
+![Screenshot 2024-06-25 180100](https://github.com/Sanjayng125/Social-Media-App-NextJS/assets/106653066/6262d50e-75d2-4203-a6c0-57918b247cc6)
 ## Create Posts
 ![Screenshot 2024-06-25 175727](https://github.com/Sanjayng125/Social-Media-App-NextJS/assets/106653066/8e9d3f80-97cf-4b0f-a06a-9ff9809ea2ad)
 ## Add Stories
