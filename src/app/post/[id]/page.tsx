@@ -32,7 +32,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="w-full bg-white shadow-2xl border h-full md:p-2 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10 dark:border-none">
-      <div className="w-full max-md:min-h-full flex flex-col gap-3 items-center mt-3 p-3 md:rounded-lg max-md:mb-12">
+      <div className="w-full max-md:min-h-full flex flex-col gap-3 items-center mt-3 p-3 md:rounded-lg max-md:mb-16">
         <div className="w-full">
           <button
             className="bg-black bg-opacity-10 p-1 rounded-full dark:bg-white dark:bg-opacity-10"
