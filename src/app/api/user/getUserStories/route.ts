@@ -29,6 +29,9 @@ export const GET = async () => {
                     }
                 },
                 {
+                    $sort: { createdAt: -1 }
+                },
+                {
                     $group: {
                         _id: {
                             userId: '$user.userId',
@@ -65,7 +68,14 @@ export const GET = async () => {
                 }
             ]);
 
-            return new Response(JSON.stringify({ userStories: groupedStories }), {
+            // Sort the stories to ensure the current user's stories are always first
+            const sortedStories = groupedStories.sort((a, b) => {
+                if (a.userId === session.user.id) return -1;
+                if (b.userId === session.user.id) return 1;
+                return 0;
+            });
+
+            return new Response(JSON.stringify({ userStories: sortedStories }), {
                 headers: { 'Content-Type': 'application/json' },
             });
 
