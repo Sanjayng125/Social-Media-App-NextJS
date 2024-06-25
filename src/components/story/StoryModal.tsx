@@ -39,7 +39,8 @@ export default function StoryModal({
               alt="dp"
               width={50}
               height={50}
-              className="rounded-full border border-black"
+              priority
+              className="w-12 h-12 rounded-full border border-black"
             />
             <p className="text-2xl font-semibold ml-2 truncate max-w-[200px]">
               {story.username}

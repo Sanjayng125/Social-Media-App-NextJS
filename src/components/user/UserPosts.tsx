@@ -48,9 +48,9 @@ const UserPosts = (posts: { posts: Post[] }) => {
               {pathname === "/profile" &&
                 session?.user &&
                 post?.createdBy === session?.user?.id && (
-                  <div className="absolute right-0 flex flex-col p-1 bg-white border rounded m-1 dark:bg-slate-800">
+                  <div className="absolute right-0 flex flex-col bg-white border rounded m-1 dark:bg-slate-800">
                     <button
-                      className="text-xl hover:scale-110"
+                      className="text-2xl hover:scale-110 p-1"
                       onClick={() => {
                         document
                           .getElementById(post?._id + "actionsMenu")
@@ -67,17 +67,17 @@ const UserPosts = (posts: { posts: Post[] }) => {
                       <FaEllipsisV />
                     </button>
                     <div
-                      className="hidden flex-col mt-1"
+                      className="hidden flex-col mt-2 text-center overflow-hidden"
                       id={post?._id + "actionsMenu"}
                     >
                       <Link
                         href={`/profile/edit/post/${post?._id}`}
-                        className="text-xl hover:scale-110"
+                        className="text-2xl hover:scale-110 border-y p-1"
                       >
                         <BiEdit />
                       </Link>
                       <button
-                        className="text-xl text-red-600 hover:scale-110 disabled:opacity-50"
+                        className="text-2xl text-red-600 hover:scale-110 disabled:opacity-50 border-y p-1"
                         onClick={() => handlePostDelete(post?._id)}
                         disabled={loading}
                       >

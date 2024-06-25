@@ -28,10 +28,10 @@ export interface IUser {
 }
 
 export interface SingleStoryProps {
-    _id: string
-    imgs: [{
-        url: string
-    }]
+    _id?: string
+    imgs: {
+        url: string | File
+    }[]
     expiresAt: string
     user: {
         userId: string

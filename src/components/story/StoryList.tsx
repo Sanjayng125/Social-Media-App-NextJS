@@ -18,7 +18,6 @@ export default function StoryList({
 }) {
   const { data: session, status } = useSession();
   const [showModel, setShowModel] = useState(false);
-  const [storyList, setStoryList] = useState(stories); // TODO: make optimestic
   const imgInputRef = useRef<HTMLInputElement>(null);
   const [images, setImages] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
@@ -34,6 +33,7 @@ export default function StoryList({
     }
     try {
       setLoading(true);
+      setShowModel(false);
 
       const convertPromises =
         images.length > 0
@@ -143,15 +143,17 @@ export default function StoryList({
             </div>
           )}
           {/* Add Story Btn */}
-          <div
-            className="flex flex-col items-center gap-2 cursor-pointer relative"
+          <button
+            className="flex flex-col items-center gap-2 relative disabled:opacity-70"
             onClick={() => setShowModel(!showModel)}
+            disabled={loading}
           >
             <Image
               src={session?.user?.avatar.url || "/noAvatar.png"}
               alt=""
               width={80}
               height={80}
+              priority
               className="w-20 h-20 rounded-full ring-2 object-cover shadow-xl"
               // onClick={() => open()}
             />
@@ -159,7 +161,7 @@ export default function StoryList({
               {loading ? "Posting..." : "Add a Story"}
             </span>
             <div className="absolute text-6xl text-gray-200 top-1">+</div>
-          </div>
+          </button>
           {/* ALL STORIES */}
           {stories.map((story: MultipleStoryProps, i: number) => (
             <div
@@ -175,6 +177,7 @@ export default function StoryList({
                 alt=""
                 width={80}
                 height={80}
+                priority
                 className="w-20 h-20 rounded-full ring-2 shadow-xl"
               />
               <span className="font-medium">{story.username || ""}</span>
@@ -212,6 +215,7 @@ export default function StoryList({
             alt=""
             width={80}
             height={80}
+            priority
             className="w-20 h-20 rounded-full ring-2 shadow-xl bg-gradient-to-b from-purple-700 to-pink-600"
           />
           <span className="font-medium">SastaGram</span>
