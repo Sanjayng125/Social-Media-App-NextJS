@@ -86,7 +86,7 @@ const Search = () => {
               Posts Not Found!
             </h2>
           )}
-          <div className="w-full gap-0 columns-3">
+          <div className="w-full grid grid-cols-3">
             {posts?.map((post: Post, i) => (
               <div key={i} className="">
                 <Link href={`/post/${post?._id}`}>

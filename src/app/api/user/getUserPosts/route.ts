@@ -26,6 +26,14 @@ export const GET = async () => {
         try {
             await connectToDb();
 
+            const currentUser = await User.findById(session.user.id)
+
+            if (!currentUser) {
+                return new Response(JSON.stringify({ userPosts: [] }), {
+                    headers: { 'Content-Type': 'application/json' },
+                });
+            }
+
             // Fetch the user with populated posts and likedPosts
             const user = await User.findById(session?.user?.id).populate("posts likedPosts").select("posts likedPosts");
 

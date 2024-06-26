@@ -20,7 +20,7 @@ export const PATCH = async (req: Request) => {
                 const userExists = await User.findById(session?.user.id)
 
                 if (!userExists) {
-                    return Response.json({ status: "error", message: "User Not Found!" })
+                    return Response.json({ status: "error", message: "User Not Found! Please login again." }, { status: 403 })
                 }
 
                 await User.findByIdAndUpdate(session?.user.id, { username: username })

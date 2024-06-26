@@ -17,6 +17,12 @@ export const DELETE = async (_req: Request, { params }: { params: { id: string }
         try {
             await connectToDb()
 
+            const currentUser = await User.findById(session.user.id)
+
+            if (!currentUser) {
+                return Response.json({ status: "error", message: "User not found! Please login again." }, { status: 403 })
+            }
+
             const post = await Post.findById(params.id)
 
             if (!post) {

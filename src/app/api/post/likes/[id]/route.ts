@@ -20,6 +20,14 @@ export const PATCH = async (_req: Request, { params }: { params: { id: string } 
 
     if (session && session.user) {
         try {
+            await connectToDb()
+
+            const currentUser = await User.findById(session.user.id)
+
+            if (!currentUser) {
+                return Response.json({ status: "error", message: "User not found! Please login again." }, { status: 403 })
+            }
+
             const postLiked = await Post.findOne({
                 _id: params.id,
                 "likes": { $elemMatch: { $eq: session.user.id } }

@@ -12,13 +12,11 @@ const Spinner2 = ({
 }) => {
   return (
     <div
-      className="Spinner"
+      className={`Spinner`}
       style={{
         width: `${width}px` || "80px",
         height: `${height}px` || "80px",
-        borderTop:
-          `${border}px solid rgb(255, 255, 255)` ||
-          "4px solid rgb(255, 255, 255)",
+        borderTop: `${border}px solid` || "4px solid",
       }}
     ></div>
   );

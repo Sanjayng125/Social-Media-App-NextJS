@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { connectToDb } from "@/lib/db";
-import { Story } from "@/lib/models";
+import { Story, User } from "@/lib/models";
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
@@ -28,6 +28,12 @@ export const POST = async (req: Request) => {
 
         try {
             await connectToDb()
+
+            const currentUser = await User.findById(session.user.id)
+
+            if (!currentUser) {
+                return Response.json({ status: "error", message: "User not found! Please login again." }, { status: 403 })
+            }
 
             const uploadPromises = images.map(async (image: string) => {
 

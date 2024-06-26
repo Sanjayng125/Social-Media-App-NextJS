@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { connectToDb } from "@/lib/db";
 import { Post, User } from "@/lib/models";
 import { v2 as cloudinary } from 'cloudinary';
+import emojiRegex from 'emoji-regex';
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
@@ -12,6 +13,11 @@ cloudinary.config({
 interface imagesProps {
     url: string
     public_id: string
+}
+
+function removeEmoji(str: string) {
+    const regex = emojiRegex();
+    return str.replace(regex, '-').trim();
 }
 
 export const POST = async (req: Request) => {
@@ -31,9 +37,14 @@ export const POST = async (req: Request) => {
         try {
             await connectToDb()
 
+            const currentUser = await User.findById(session.user.id)
+
+            if (!currentUser) {
+                return Response.json({ status: "error", message: "User not found! Please login again." }, { status: 403 })
+            }
+
             const getTags = tags.split(" ");
             const allTags = getTags.filter((e: string) => e !== "");
-
 
             const uploadPromises = images.map(async (image: string) => {
 
@@ -41,7 +52,7 @@ export const POST = async (req: Request) => {
                     try {
                         const date = new Date()
                         const res = await cloudinary.uploader.upload(`${image}`, {
-                            folder: `social_media_nextjs_app/${session?.user?.email}/posts/${caption + date.getTime()}`
+                            folder: `social_media_nextjs_app/${session?.user?.email}/posts/${removeEmoji(caption) + date.getTime()}`
                         });
 
                         if (res?.secure_url) {

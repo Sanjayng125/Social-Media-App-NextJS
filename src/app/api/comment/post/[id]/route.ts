@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { connectToDb } from "@/lib/db";
-import { Comment, Post } from "@/lib/models";
+import { Comment, User } from "@/lib/models";
 
 export const POST = async (req: Request, { params }: { params: { id: string } }) => {
     const session = await auth()
@@ -12,6 +12,12 @@ export const POST = async (req: Request, { params }: { params: { id: string } })
 
             const { commentText } = await req.json()
             const userId = session.user.id
+
+            const currentUser = await User.findById(session.user.id)
+
+            if (!currentUser) {
+                return Response.json({ status: "error", message: "User not found! Please login again." }, { status: 403 })
+            }
 
             const newComment = await new Comment({ postId, commentBy: userId, commentText: commentText })
 

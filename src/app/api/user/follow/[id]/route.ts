@@ -9,6 +9,12 @@ export const PATCH = async (_req: Request, { params }: { params: { id: string } 
         try {
             await connectToDb()
 
+            const currentUser = await User.findById(session.user.id)
+
+            if (!currentUser) {
+                return Response.json({ status: "error", message: "User not found! Please login again." }, { status: 403 })
+            }
+
             const following = await User.findOne({
                 _id: session.user.id,
                 "following": { $elemMatch: { $eq: params.id } }

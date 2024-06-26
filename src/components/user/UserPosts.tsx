@@ -27,8 +27,8 @@ const UserPosts = (posts: { posts: Post[] }) => {
         const res = await api.json();
 
         if (res?.status === "success") {
-          alert(res?.message);
           router.refresh();
+          alert(res?.message);
         }
         setLoading(false);
       } catch (error) {

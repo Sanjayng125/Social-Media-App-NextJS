@@ -18,6 +18,13 @@ export const PATCH = async (req: Request) => {
 
         try {
             await connectToDb()
+
+            const currentUser = await User.findById(session.user.id)
+
+            if (!currentUser) {
+                return Response.json({ status: "error", message: "User not found! Please login again." }, { status: 403 })
+            }
+
             if (session?.user.avatar.public_id && session?.user.avatar.public_id !== null) {
                 await cloudinary.uploader.destroy(session?.user.avatar.public_id)
             }

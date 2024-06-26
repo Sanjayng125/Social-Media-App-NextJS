@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { connectToDb } from "@/lib/db";
-import { Post } from "@/lib/models";
+import { Post, User } from "@/lib/models";
 
 export const PATCH = async (req: Request, { params }: { params: { id: string } }) => {
     const session = await auth()
@@ -17,6 +17,12 @@ export const PATCH = async (req: Request, { params }: { params: { id: string } }
 
         try {
             await connectToDb()
+
+            const currentUser = await User.findById(session.user.id)
+
+            if (!currentUser) {
+                return Response.json({ status: "error", message: "User not found! Please login again." }, { status: 403 })
+            }
 
             const getTags = tags.split(" ");
             const allTags = getTags.filter((e: string) => e !== "");

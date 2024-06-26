@@ -10,6 +10,13 @@ export const GET = async (req: NextRequest) => {
         try {
             await connectToDb()
 
+            const currentUser = await User.findById(session.user.id)
+
+            if (!currentUser) {
+                return Response.json({ userDetails: null })
+            }
+
+
             const queryParams = req.nextUrl.searchParams
 
             const limit = queryParams.get("limit") || false
