@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import PostCard from "../postCard/PostCard";
 import { Post } from "@/types";
+import LoadMore from "../loadMore/LoadMore";
 
 const Posts = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -11,7 +12,7 @@ const Posts = () => {
   const getPosts = async () => {
     try {
       setLoading(true);
-      const api = await fetch("/api/getPosts");
+      const api = await fetch("/api/getPosts?limit=3");
       const res = await api.json();
 
       setPosts(res.posts);
@@ -31,10 +32,11 @@ const Posts = () => {
       {posts && posts.length <= 0 && !loading && (
         <h1 className="text-xl text-center">No Grams Yet!...</h1>
       )}
-      {loading && <h1 className="text-xl text-center">Loading...</h1>}
+      {/* {loading && <h1 className="text-xl text-center">Loading...</h1>} */}
       {posts.map((post, i) => (
         <PostCard postDetails={post} key={i} />
       ))}
+      {posts.length > 0 && <LoadMore />}
     </div>
   );
 };

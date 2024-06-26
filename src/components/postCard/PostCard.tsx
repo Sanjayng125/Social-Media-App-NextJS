@@ -86,14 +86,14 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
                 : `/user/${postDetails?.createdBy?._id}`
               : `/user/${postDetails?.createdBy?._id}`
           }
-          className="w-max p-2 flex items-center gap-2"
+          className="w-max flex items-center gap-2"
         >
           <Image
             src={postDetails?.createdBy?.avatar?.url || "/noavatar.png"}
             alt={"Profile image"}
             width={40}
             height={40}
-            className="w-[40px] h-[40px] rounded-full mb-2 border object-cover"
+            className="w-12 h-12 rounded-full mb-2 border object-cover"
           />
           <h2 className="text-xl font-semibold">
             {postDetails?.createdBy?.username}
@@ -142,8 +142,6 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
                   <Image
                     src={imgSrc.url}
                     alt={""}
-                    // layout="fill"
-                    // objectFit="contain" // Changed to "contain" to fit the image inside the container\
                     fill
                     className="object-contain"
                     priority

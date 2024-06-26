@@ -41,16 +41,7 @@ const Explore = () => {
           <Spinner2 width={50} height={50} border={3} />
         </div>
       )}
-      <div
-        className="w-full rounded gap-0 columns-3 mt-3"
-        // style={{
-        //   display: "grid",
-        //   gap: "10px",
-        //   gridTemplateColumns: "repeat(auto-fit, min-max(250px, 1fr))",
-        //   gridAutoRows: "200px",
-        //   gridAutoFlow: "dense",
-        // }}
-      >
+      <div className="w-full rounded gap-0 columns-3 mt-3">
         {!loading &&
           posts &&
           posts.map((post: Post, i: number) => (
