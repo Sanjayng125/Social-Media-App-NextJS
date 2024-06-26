@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import Spinner2 from "../loader/Spinner2";
 
 const RightSideBar = () => {
   const { data: session } = useSession();
@@ -37,7 +38,11 @@ const RightSideBar = () => {
     <div className="bg-white shadow-2xl border h-full rounded p-2 dark:bg-white dark:bg-opacity-10 dark:border-none">
       {session && session.user ? (
         <div className="flex flex-col">
-          {loading && <h2 className="text-xl text-center">Loading...</h2>}
+          {loading && (
+            <div className="w-full flex justify-center">
+              <Spinner2 width={40} height={40} border={2} />
+            </div>
+          )}
           <div className="mb-2">
             <h2 className="text-xl font-semibold">Followers</h2>
             {followers && (

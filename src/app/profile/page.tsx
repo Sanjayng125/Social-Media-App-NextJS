@@ -1,4 +1,5 @@
 "use client";
+import Spinner2 from "@/components/loader/Spinner2";
 import UserLikedPosts from "@/components/user/UserLikedPosts";
 import UserPosts from "@/components/user/UserPosts";
 import { handleLogOut } from "@/lib/actions";
@@ -130,7 +131,9 @@ const Profile = () => {
             </div>
             <div className="w-full h-auto">
               {loading && (
-                <h1 className="text-center font-semibold">Loading...</h1>
+                <div className="w-full flex justify-center mt-2">
+                  <Spinner2 width={40} height={40} border={2} />
+                </div>
               )}
               {!loading && showPosts && userPosts?.length === 0 && (
                 <h1 className="text-white text-center text-xl">

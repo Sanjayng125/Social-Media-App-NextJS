@@ -73,7 +73,7 @@ export default function Like({ id }: { id: string }) {
               />
             ))}
           {likes.length > 0 && (
-            <p>
+            <p className="flex truncate">
               {likes.length} {likes.length === 1 ? "like" : "likes"}
             </p>
           )}

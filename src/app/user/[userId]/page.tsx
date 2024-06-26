@@ -1,4 +1,5 @@
 "use client";
+import Spinner2 from "@/components/loader/Spinner2";
 import UserPosts from "@/components/user/UserPosts";
 import { IUser } from "@/types";
 import { useSession } from "next-auth/react";
@@ -75,7 +76,9 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
   return (
     <div className="flex flex-col justify-center bg-white shadow-2xl border h-full md:p-3 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10 dark:border-none">
       {loading && (
-        <h1 className="text-2xl font-semibold text-center">Loading...</h1>
+        <div className="w-full flex justify-center">
+          <Spinner2 width={50} height={50} border={3} />
+        </div>
       )}
       {userDetails !== null && (
         <div className="w-full bg-black bg-opacity-10 md:rounded-lg p-3 h-full overflow-y-auto dark:bg-white dark:bg-opacity-30">
@@ -120,9 +123,13 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
                     onClick={() => handleFollow()}
                     disabled={loading}
                   >
-                    <span className="max-[350px]:hidden">
-                      {followLoading ? "Loading..." : "Follow"}
-                    </span>
+                    <div className="max-[350px]:hidden">
+                      {followLoading ? (
+                        <Spinner2 width={20} height={20} border={2} />
+                      ) : (
+                        "Follow"
+                      )}
+                    </div>
                   </button>
                   <button
                     className={`sm:mr-3 ${
@@ -132,7 +139,11 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
                     disabled={loading}
                   >
                     <span className="max-[350px]:hidden">
-                      {followLoading ? "Loading..." : "Unfollow"}
+                      {followLoading ? (
+                        <Spinner2 width={20} height={20} border={2} />
+                      ) : (
+                        "Unfollow"
+                      )}
                     </span>
                   </button>
                 </div>

@@ -1,4 +1,5 @@
 "use client";
+import Spinner2 from "@/components/loader/Spinner2";
 import { Post } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,7 +37,9 @@ const Explore = () => {
         <h1 className="text-xl font-semibold text-center">No Posts Yet!</h1>
       )}
       {loading && (
-        <h1 className="text-xl font-semibold text-center">Loading...</h1>
+        <div className="w-full flex justify-center mt-2">
+          <Spinner2 width={50} height={50} border={3} />
+        </div>
       )}
       <div
         className="w-full rounded gap-0 columns-3 mt-3"

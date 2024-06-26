@@ -284,18 +284,18 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
                     alt=""
                     width={28}
                     height={28}
-                    className="w-[23px] h-[23px] sm:w-[27px] sm:h-[27px] rounded-full object-cover"
+                    className="w-7 h-7 sm:w-9 sm:h-9 rounded-full object-cover"
                   />
-                  <span className="text-xs sm:text-sm">
+                  <span className="text-sm sm:text-lg font-semibold">
                     {comment.commentBy.username}
                   </span>
                 </div>
-                <span className="text-[8px] sm:text-xs">
+                <span className="text-xs sm:text-sm">
                   {format(comment.createdAt)}
                 </span>
               </div>
               <p
-                className="w-full px-2 text-[12px] sm:text-sm"
+                className="w-full px-2 text-xs sm:text-sm"
                 style={{ wordBreak: "break-all" }}
               >
                 {comment.commentText}

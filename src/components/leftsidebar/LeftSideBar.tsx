@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import Spinner2 from "../loader/Spinner2";
 
 const LeftSideBar = () => {
   const path = usePathname();
@@ -17,8 +18,8 @@ const LeftSideBar = () => {
         <h1 className="text-2xl font-bold text-center">SastaGram</h1>
       </div>
       {authLoading && (
-        <div className="flex items-center justify-center gap-2 border-y p-2">
-          <h1 className="text-2xl font-bold">Loading...</h1>
+        <div className="w-full flex justify-center">
+          <Spinner2 width={40} height={40} border={2} />
         </div>
       )}
       {session?.user && !authLoading && (

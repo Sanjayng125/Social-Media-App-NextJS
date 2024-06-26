@@ -1,4 +1,5 @@
 "use client";
+import Spinner2 from "@/components/loader/Spinner2";
 import { Post } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -79,7 +80,9 @@ const Search = () => {
       {show === "posts" && (
         <div className="w-full mt-2">
           {loading && (
-            <h2 className="text-xl text-center font-semibold">Loading...</h2>
+            <div className="w-full flex justify-center my-2">
+              <Spinner2 width={40} height={40} border={2} />
+            </div>
           )}
           {!loading && posts.length === 0 && (
             <h2 className="text-xl text-center font-semibold">
@@ -107,11 +110,13 @@ const Search = () => {
       {show === "peoples" && (
         <div className="w-full mt-2 p-2">
           {loading && (
-            <h2 className="text-xl text-center font-semibold">Loading...</h2>
+            <div className="w-full flex justify-center my-2">
+              <Spinner2 width={40} height={40} border={2} />
+            </div>
           )}
           {!loading && peoples.length === 0 && (
             <h2 className="text-xl text-center font-semibold">
-              User Not Found!
+              Users Not Found!
             </h2>
           )}
           <div className="w-full grid grid-cols-2 gap-2">

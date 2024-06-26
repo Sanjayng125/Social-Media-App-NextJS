@@ -1,4 +1,5 @@
 "use client";
+import Spinner2 from "@/components/loader/Spinner2";
 import PostCard from "@/components/postCard/PostCard";
 import { PostPageProps } from "@/types";
 import { useRouter } from "next/navigation";
@@ -31,9 +32,9 @@ const PostPage = ({ params }: { params: { id: string } }) => {
   }, [params]);
 
   return (
-    <div className="w-full bg-white shadow-2xl border h-full md:p-2 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10 dark:border-none">
-      <div className="w-full max-md:min-h-full flex flex-col gap-3 items-center mt-3 p-3 md:rounded-lg max-md:mb-16">
-        <div className="w-full">
+    <div className="w-full bg-white shadow-2xl border h-full md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10 dark:border-none">
+      <div className="w-full max-md:min-h-full flex flex-col gap-3 items-center mt-3 md:rounded-lg max-md:mb-16">
+        <div className="w-full px-3">
           <button
             className="bg-black bg-opacity-10 p-1 rounded-full dark:bg-white dark:bg-opacity-10"
             onClick={() => router.back()}
@@ -43,7 +44,8 @@ const PostPage = ({ params }: { params: { id: string } }) => {
         </div>
         <hr />
         {loading && (
-          <h1 className="text-center text-xl font-semibold">Loading...</h1>
+          // <h1 className="text-center text-xl font-semibold">Loading...</h1>
+          <Spinner2 width={50} height={50} border={3} />
         )}
         {!loading && posts === null && (
           <h1 className="text-center text-xl font-semibold">

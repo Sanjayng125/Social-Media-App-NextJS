@@ -103,7 +103,9 @@ export default function Modal({
               </Swiper>
             </div>
             <div className="bg-white w-full p-4 flex justify-between items-center dark:bg-slate-900">
-              <h1 className="sm:text-2xl font-bold">{posts?.post?.caption}</h1>
+              <h1 className="sm:text-2xl font-bold truncate">
+                {posts?.post?.caption}
+              </h1>
               <div className="flex gap-3 items-center relative">
                 <Like id={posts.post?._id || ""} />
                 <div className="border rounded-full flex justify-center items-center cursor-pointer p-2">
@@ -164,15 +166,15 @@ export default function Modal({
               postComments?.map((comment, i) => (
                 <div className="flex flex-col" key={i}>
                   <div className="w-full flex justify-between items-center pl-1 pr-2">
-                    <div className="flex items-center gap-1 p-2">
+                    <div className="flex items-center gap-1">
                       <Image
                         src={comment.commentBy.avatar.url || "/noavatar.png"}
                         alt=""
                         width={28}
                         height={28}
-                        className="w-[20px] h-[20px] sm:w-[27px] sm:h-[27px] rounded-full object-cover"
+                        className="w-7 h-7 sm:w-9 sm:h-9 rounded-full object-cover"
                       />
-                      <span className="text-[8px] sm:text-sm font-semibold">
+                      <span className="text-sm sm:text-lg font-semibold truncate">
                         {comment.commentBy.username}
                       </span>
                     </div>
@@ -181,7 +183,7 @@ export default function Modal({
                     </span>
                   </div>
                   <p
-                    className="w-full px-2 text-[11px] sm:text-sm"
+                    className="w-full px-2 text-xs sm:text-sm"
                     style={{ wordBreak: "break-all" }}
                   >
                     {comment.commentText}
