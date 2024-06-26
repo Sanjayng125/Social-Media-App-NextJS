@@ -76,8 +76,8 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center border rounded-lg relative overflow-hidden">
-      <div className="w-full flex justify-between items-center px-3">
+    <div className="w-full flex flex-col items-center relative overflow-hidden">
+      <div className="w-full flex justify-between items-center px-2">
         <Link
           href={
             session?.user
@@ -153,19 +153,73 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
             ))}
         </Swiper>
       </div>
-      <div className="flex justify-between w-full p-2">
-        <div className="flex items-center gap-2">
-          <h1 className="font-semibold">{postDetails?.caption}</h1>
-          <Like id={postDetails._id} />
+      {/* post info */}
+      <div className="flex flex-col w-full p-2 px-3 gap-1">
+        {/* post caption */}
+        <div className="flex flex-col items-start">
+          <h1 className="font-semibold break-all" id={postDetails._id}>
+            {(postDetails?.caption.length > 30 &&
+              postDetails?.caption.slice(0, 30) + "...") ||
+              postDetails?.caption}
+          </h1>
+          {postDetails?.caption.length > 30 && (
+            <>
+              <button
+                className="hover:underline"
+                id={`moreBtn-${postDetails._id}`}
+                onClick={() => {
+                  const caption = document.getElementById(postDetails._id);
+                  caption?.innerText
+                    ? (caption.innerText = postDetails?.caption)
+                    : null;
+                  const moreBtn = document.getElementById(
+                    `moreBtn-${postDetails._id}`
+                  );
+                  moreBtn ? (moreBtn.style.display = "none") : null;
+                  const lessBtn = document.getElementById(
+                    `lessBtn-${postDetails._id}`
+                  );
+                  lessBtn ? (lessBtn.style.display = "block") : null;
+                }}
+              >
+                more
+              </button>
+              <button
+                className="hover:underline hidden"
+                id={`lessBtn-${postDetails._id}`}
+                onClick={() => {
+                  const caption = document.getElementById(postDetails._id);
+                  caption?.innerText
+                    ? (caption.innerText =
+                        postDetails?.caption.slice(0, 30) + "...")
+                    : null;
+                  const moreBtn = document.getElementById(
+                    `moreBtn-${postDetails._id}`
+                  );
+                  moreBtn ? (moreBtn.style.display = "block") : null;
+                  const lessBtn = document.getElementById(
+                    `lessBtn-${postDetails._id}`
+                  );
+                  lessBtn ? (lessBtn.style.display = "none") : null;
+                }}
+              >
+                less
+              </button>
+            </>
+          )}
         </div>
-        <button
-          className="border p-1 rounded hover:bg-black hover:bg-opacity-10"
-          onClick={() => setShowComments(!showComments)}
-        >
-          View Comments
-        </button>
+        {/* like and comment button */}
+        <div className="w-full flex justify-between">
+          <Like id={postDetails._id} />
+          <button
+            className="border font-semibold p-1 rounded hover:bg-black hover:bg-opacity-10"
+            onClick={() => setShowComments(!showComments)}
+          >
+            View Comments
+          </button>
+        </div>
       </div>
-      {/* comment section */}
+      {/* All comments section */}
       <div
         className={`w-full h-full z-10 bg-white dark:bg-slate-500 transition-all duration-300 flex flex-col absolute ${
           showComments ? "top-0 left-0" : "translate-y-[100%]"

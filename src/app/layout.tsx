@@ -10,7 +10,7 @@ import { ThemeProviders } from "./themeProvider";
 
 export const metadata: Metadata = {
   manifest: "/manifest.json",
-  title: "Home: Welcome To SastaGram",
+  title: "SastaGram",
   description:
     "This is a simple App Like Instagram Built Using Next JS, MongoDB and Cloudinary",
 };

@@ -27,7 +27,7 @@ const Posts = () => {
   }, []);
 
   return (
-    <div className="w-full max-md:min-h-full flex flex-col gap-3 items-center mt-3 bg-white text-black dark:text-white p-3 md:rounded-lg dark:bg-transparent">
+    <div className="w-full max-md:min-h-full flex flex-col gap-3 items-center mt-3 bg-white text-black dark:text-white md:rounded-lg dark:bg-transparent">
       {posts && posts.length <= 0 && !loading && (
         <h1 className="text-xl text-center">No Grams Yet!...</h1>
       )}
