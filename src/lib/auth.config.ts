@@ -1,10 +1,12 @@
-export const authConfig = {
+import { type NextAuthConfig } from "next-auth";
+
+export const authConfig: NextAuthConfig = {
     pages: {
         signIn: "/login",
     },
     providers: [],
     callbacks: {
-        async jwt({ token, user, trigger, session }: any) {
+        async jwt({ token, user, trigger, session }) {
             if (user) {
                 token.id = user.id;
                 token.username = user.username;

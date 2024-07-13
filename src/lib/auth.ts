@@ -29,7 +29,9 @@ const login = async (credentials: { email: string, password: string }) => {
             throw new Error("Invalid credentials!");
         }
 
-        return user;
+        const { password: pass, ...rest } = user._doc
+
+        return rest;
     } catch (error) {
         console.log(error);
         throw new Error("Failed to login!");
@@ -62,33 +64,6 @@ export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
         }),
     ],
     callbacks: {
-        async signIn({ user, account, profile }) {
-            //   console.log(user, accout, profile);
-            if (account?.provider === "github") {
-                connectToDb();
-                try {
-                    const user = await User.findOne({ email: profile?.email });
-                    // console.log(user);
-
-                    if (!user) {
-                        const newUser = new User({
-                            username: profile?.login,
-                            email: profile?.email,
-                            avatar: profile?.avatar_url,
-                        });
-                        await newUser.save();
-                    }
-                } catch (error) {
-                    console.log(error);
-                    return false;
-                }
-            }
-            if (account?.provider === "google") {
-                console.log("Acount", account);
-                console.log("Profile", profile);
-            }
-            return true;
-        },
         ...authConfig.callbacks,
     }
 })

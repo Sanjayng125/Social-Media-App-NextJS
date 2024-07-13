@@ -1,23 +1,8 @@
-import { DefaultSession } from "next-auth"
-
-// Declaring Next auth session to add extra fields id and username for typescript.
-declare module "next-auth" {
-    interface Session {
-        user: {
-            id: string
-            username: string
-            avatar: {
-                public_id: string | null
-                url: string
-            }
-        } & DefaultSession["user"]
-    }
-}
-
 export interface IUser {
     _id: string
     username: string
     email: string,
+    isAdmin?: boolean
     avatar: {
         url: string,
         public_id?: string
