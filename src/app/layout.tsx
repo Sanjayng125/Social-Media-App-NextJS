@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import LeftSideBar from "@/components/leftsidebar/LeftSideBar";
-import RightSideBar from "@/components/rightsidebar/RightSideBar";
-import BottomBar from "@/components/bottombar/BottomBar";
-import Navbar from "@/components/navbar/Navbar";
+import LeftSideBar from "@/components/bars/LeftSideBar";
+import RightSideBar from "@/components/bars/RightSideBar";
+import BottomBar from "@/components/bars/BottomBar";
+import Navbar from "@/components/bars/Navbar";
 import AuthProvider from "@/context/AuthProvider";
 import { auth } from "@/lib/auth";
-import { ThemeProviders } from "./themeProvider";
+import { ThemeProviders } from "../context/ThemeProviders";
 
 export const metadata: Metadata = {
   manifest: "/manifest.json",

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import PostCard from "../postCard/PostCard";
+import PostCard from "./PostCard";
 import { Post } from "@/types";
 import LoadMore from "../loadMore/LoadMore";
 

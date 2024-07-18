@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { HiOutlineHeart, HiHeart } from "react-icons/hi";
-import Spinner2 from "../loader/Spinner2";
+import Spinner2 from "@/components/loader/Spinner2";
 
 export default function Like({ id }: { id: string }) {
   const { data: session } = useSession();

@@ -1,4 +1,4 @@
-import Posts from "@/components/posts/Posts";
+import Posts from "@/components/post/Posts";
 import Story from "@/components/story/Story";
 
 export default function Home() {

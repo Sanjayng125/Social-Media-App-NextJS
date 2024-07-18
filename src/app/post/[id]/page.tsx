@@ -1,6 +1,6 @@
 "use client";
 import Spinner2 from "@/components/loader/Spinner2";
-import PostCard from "@/components/postCard/PostCard";
+import PostCard from "@/components/post/PostCard";
 import { PostPageProps } from "@/types";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";

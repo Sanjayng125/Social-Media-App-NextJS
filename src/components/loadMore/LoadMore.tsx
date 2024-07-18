@@ -3,7 +3,7 @@ import React, { use, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Spinner2 from "../loader/Spinner2";
 import { Post } from "@/types";
-import PostCard from "../postCard/PostCard";
+import PostCard from "@/components/post/PostCard";
 
 export default function LoadMore() {
   const { ref, inView } = useInView();

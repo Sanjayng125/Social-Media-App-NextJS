@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import ThemeSwitch from "../theme/themeSwitch";
+import ThemeSwitch from "./ThemeSwitch";
 
 const Search = () => {
   const [searchInput, setSearchInput] = useState("");

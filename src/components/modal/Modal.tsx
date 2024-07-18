@@ -12,7 +12,7 @@ import Wrapper from "./Wrapper";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { format } from "timeago.js";
-import Like from "../like/Like";
+import Like from "../Like";
 import Spinner2 from "../loader/Spinner2";
 
 export default function Modal({

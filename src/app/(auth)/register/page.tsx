@@ -2,7 +2,7 @@
 import { register } from "@/lib/actions";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
 const Register = () => {
