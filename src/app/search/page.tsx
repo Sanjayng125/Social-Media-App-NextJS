@@ -28,6 +28,8 @@ const Search = () => {
       router.push("/explore");
     }
     if (queryParams.get("q") !== "" && queryParams.get("q") !== null) {
+      setPosts([])
+      setPeoples([])
       getSearch();
     }
   },[queryParams.get("q")])
