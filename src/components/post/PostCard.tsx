@@ -1,7 +1,7 @@
 import { Comment, imageProps, Post } from "@/types";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { FaShare, FaWindowClose } from "react-icons/fa";
+import { FaCheck, FaLink, FaShare, FaWindowClose } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
@@ -13,6 +13,16 @@ import { useRouter } from "next/navigation";
 import { format } from "timeago.js";
 import Like from "../Like";
 import Spinner2 from "@/components/loader/Spinner2";
+import {
+  WhatsappShareButton,
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappIcon,
+  FacebookIcon,
+  TwitterIcon,
+} from "react-share";
+import { FaXmark } from "react-icons/fa6";
+import Head from "next/head";
 
 const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
   const { data: session } = useSession();
@@ -21,6 +31,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
   const [commentsLoading, setCommentsLoading] = useState(true);
   const [comment, setComment] = useState("");
   const [copied, setCopied] = useState(false);
+  const [shareModal, setShareModal] = useState(false);
   const router = useRouter();
 
   const getPostComments = async () => {
@@ -76,232 +87,278 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center relative overflow-hidden">
-      <div className="w-full flex justify-between items-center px-2">
-        <Link
-          href={
-            session?.user
-              ? session.user.id === postDetails?.createdBy?._id
-                ? "/profile"
+    <>
+      <Head>
+        <title>{postDetails?.caption}</title>
+        <meta name="description" content={postDetails?.caption} />
+        <link rel="icon" href="/favicon.ico" />
+        <meta property="og:image" content={postDetails?.images[0].url} />
+        <meta property="og:title" content={postDetails?.caption} />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content={postDetails?.caption} />
+        <meta property="twitter:image" content={postDetails?.images[0].url} />
+        <meta
+          name="twitter:url"
+          content={`https://social-media-app-next-js.vercel.app/post/${postDetails?._id}`}
+        />
+      </Head>
+      <div className="w-full flex flex-col items-center relative overflow-hidden">
+        <div className="w-full flex justify-between items-center px-2">
+          <Link
+            href={
+              session?.user
+                ? session.user.id === postDetails?.createdBy?._id
+                  ? "/profile"
+                  : `/user/${postDetails?.createdBy?._id}`
                 : `/user/${postDetails?.createdBy?._id}`
-              : `/user/${postDetails?.createdBy?._id}`
-          }
-          className="w-max flex items-center gap-2"
-        >
-          <Image
-            src={postDetails?.createdBy?.avatar?.url || "/noavatar.png"}
-            alt={"Profile image"}
-            width={40}
-            height={40}
-            className="w-12 h-12 rounded-full mb-2 border object-cover"
-          />
-          <h2 className="text-xl font-semibold">
-            {postDetails?.createdBy?.username}
-          </h2>
-        </Link>
-        <div className="flex flex-col items-end relative">
-          <div className="border rounded-full flex justify-center items-center cursor-pointer p-2">
-            <FaShare
-              className="text-xl"
-              onClick={() => {
-                navigator.clipboard.writeText(
-                  `${window.location.origin}/post/${postDetails?._id}`
-                );
-                setCopied(true);
-                setTimeout(() => {
-                  setCopied(false);
-                }, 2000);
-              }}
+            }
+            className="w-max flex items-center gap-2"
+          >
+            <Image
+              src={postDetails?.createdBy?.avatar?.url || "/noavatar.png"}
+              alt={"Profile image"}
+              width={40}
+              height={40}
+              className="w-12 h-12 rounded-full mb-2 border object-cover"
             />
-          </div>
-          {copied && (
-            <p className="absolute z-10 rounded-md bg-blue-500 p-2 text-white">
-              copied!
-            </p>
-          )}
-          <p className="text-sm">{format(postDetails.createdAt)}</p>
-        </div>
-      </div>
-      <div className="w-full h-min flex justify-center overflow-hidden bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-30">
-        <Swiper
-          className="w-full"
-          pagination={{
-            type: "bullets",
-            dynamicBullets: true,
-          }}
-          modules={[Pagination]}
-          centeredSlides={true}
-        >
-          {postDetails &&
-            postDetails.images.map((imgSrc: imageProps, i: number) => (
-              <SwiperSlide
-                key={i}
-                className="w-full flex items-center justify-center"
-              >
-                <div className="w-full h-[300px] relative">
-                  <Image
-                    src={imgSrc.url}
-                    alt={""}
-                    fill
-                    className="object-contain"
-                    priority
-                  />
+            <h2 className="text-xl font-semibold">
+              {postDetails?.createdBy?.username}
+            </h2>
+          </Link>
+          <div className="flex flex-col items-end relative">
+            <div className="border rounded-full flex justify-center items-center cursor-pointer p-2 relative">
+              <button onClick={() => setShareModal(!shareModal)}>
+                {shareModal ? (
+                  <FaXmark className="text-xl" />
+                ) : (
+                  <FaShare className="text-xl" />
+                )}
+              </button>
+              {shareModal && (
+                <div className="border-2 rounded-full flex items-center gap-2 p-2 absolute top-10 right-0 bg-white z-10">
+                  <button
+                    className={`rounded-full w-8 h-8 p-2 text-white ${
+                      copied ? "bg-blue-500" : "bg-gray-600"
+                    }`}
+                    disabled={copied}
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        `${window.location.origin}/post/${postDetails?._id}`
+                      );
+                      setCopied(true);
+                      setTimeout(() => {
+                        setCopied(false);
+                      }, 2000);
+                    }}
+                  >
+                    {copied ? <FaCheck /> : <FaLink />}
+                  </button>
+                  <WhatsappShareButton
+                    url={`${window.location.origin}/post/${postDetails?._id}`}
+                    title="Share on Whatsapp"
+                  >
+                    <WhatsappIcon size={32} round />
+                  </WhatsappShareButton>
+                  <FacebookShareButton
+                    url={`${window.location.origin}/post/${postDetails?._id}`}
+                    title="Share on Facebook"
+                  >
+                    <FacebookIcon size={32} round />
+                  </FacebookShareButton>
+                  <TwitterShareButton
+                    // url={`${window.location.origin}/post/${postDetails?._id}`}
+                    url={`https://social-media-app-next-js.vercel.app/post/${postDetails?._id}`}
+                    title="Share on Twitter"
+                  >
+                    <TwitterIcon size={32} round />
+                  </TwitterShareButton>
                 </div>
-              </SwiperSlide>
-            ))}
-        </Swiper>
-      </div>
-      {/* post info */}
-      <div className="flex flex-col w-full p-2 px-3 gap-1">
-        {/* post caption */}
-        <div className="flex flex-col items-start">
-          <h1 className="font-semibold break-all" id={postDetails._id}>
-            {(postDetails?.caption.length > 30 &&
-              postDetails?.caption.slice(0, 30) + "...") ||
-              postDetails?.caption}
-          </h1>
-          {postDetails?.caption.length > 30 && (
-            <>
-              <button
-                className="hover:underline"
-                id={`moreBtn-${postDetails._id}`}
-                onClick={() => {
-                  const caption = document.getElementById(postDetails._id);
-                  caption?.innerText
-                    ? (caption.innerText = postDetails?.caption)
-                    : null;
-                  const moreBtn = document.getElementById(
-                    `moreBtn-${postDetails._id}`
-                  );
-                  moreBtn ? (moreBtn.style.display = "none") : null;
-                  const lessBtn = document.getElementById(
-                    `lessBtn-${postDetails._id}`
-                  );
-                  lessBtn ? (lessBtn.style.display = "block") : null;
-                }}
-              >
-                more
-              </button>
-              <button
-                className="hover:underline hidden"
-                id={`lessBtn-${postDetails._id}`}
-                onClick={() => {
-                  const caption = document.getElementById(postDetails._id);
-                  caption?.innerText
-                    ? (caption.innerText =
-                        postDetails?.caption.slice(0, 30) + "...")
-                    : null;
-                  const moreBtn = document.getElementById(
-                    `moreBtn-${postDetails._id}`
-                  );
-                  moreBtn ? (moreBtn.style.display = "block") : null;
-                  const lessBtn = document.getElementById(
-                    `lessBtn-${postDetails._id}`
-                  );
-                  lessBtn ? (lessBtn.style.display = "none") : null;
-                }}
-              >
-                less
-              </button>
-            </>
-          )}
-        </div>
-        {/* like and comment button */}
-        <div className="w-full flex justify-between">
-          <Like id={postDetails._id} />
-          <button
-            className="border font-semibold p-1 rounded hover:bg-black hover:bg-opacity-10"
-            onClick={() => setShowComments(!showComments)}
-          >
-            View Comments
-          </button>
-        </div>
-      </div>
-      {/* All comments section */}
-      <div
-        className={`w-full h-full z-10 bg-white dark:bg-slate-500 transition-all duration-300 flex flex-col absolute ${
-          showComments ? "top-0 left-0" : "translate-y-[100%]"
-        }`}
-      >
-        <div className="text-base sm:text-xl w-full flex justify-between p-2">
-          Comments
-          <button
-            onClick={() => setShowComments(!showComments)}
-            className="p-1 text-xl text-black dark:text-white text-opacity-60"
-          >
-            <FaWindowClose />
-          </button>
-        </div>
-        {session?.user ? (
-          <div className="w-full flex">
-            <input
-              type="text"
-              className="w-full bg-black bg-opacity-10 dark:bg-slate-600 outline-none text-[10px] sm:text-sm py-2 px-3"
-              placeholder="Comment Something..."
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            <button
-              className="bg-black bg-opacity-10 hover:bg-opacity-30 dark:bg-slate-600 dark:hover:bg-slate-700 p-1 px-2 sm:px-4 border-l border-l-white disabled:opacity-50"
-              onClick={() => newComment()}
-              disabled={commentsLoading || comment === ""}
-            >
-              {commentsLoading ? (
-                <Spinner2 width={25} height={25} border={2} />
-              ) : (
-                <BiSend />
               )}
+            </div>
+            <p className="text-sm">{format(postDetails.createdAt)}</p>
+          </div>
+        </div>
+        <div className="w-full h-min flex justify-center overflow-hidden bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-30">
+          <Swiper
+            className="w-full"
+            pagination={{
+              type: "bullets",
+              dynamicBullets: true,
+            }}
+            modules={[Pagination]}
+            centeredSlides={true}
+          >
+            {postDetails &&
+              postDetails.images.map((imgSrc: imageProps, i: number) => (
+                <SwiperSlide
+                  key={i}
+                  className="w-full flex items-center justify-center"
+                >
+                  <div className="w-full h-[300px] relative">
+                    <Image
+                      src={imgSrc.url}
+                      alt={""}
+                      fill
+                      className="object-contain"
+                      priority
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        </div>
+        {/* post info */}
+        <div className="flex flex-col w-full p-2 px-3 gap-1">
+          {/* post caption */}
+          <div className="flex flex-col items-start">
+            <h1 className="font-semibold break-all" id={postDetails._id}>
+              {(postDetails?.caption.length > 30 &&
+                postDetails?.caption.slice(0, 30) + "...") ||
+                postDetails?.caption}
+            </h1>
+            {postDetails?.caption.length > 30 && (
+              <>
+                <button
+                  className="hover:underline"
+                  id={`moreBtn-${postDetails._id}`}
+                  onClick={() => {
+                    const caption = document.getElementById(postDetails._id);
+                    caption?.innerText
+                      ? (caption.innerText = postDetails?.caption)
+                      : null;
+                    const moreBtn = document.getElementById(
+                      `moreBtn-${postDetails._id}`
+                    );
+                    moreBtn ? (moreBtn.style.display = "none") : null;
+                    const lessBtn = document.getElementById(
+                      `lessBtn-${postDetails._id}`
+                    );
+                    lessBtn ? (lessBtn.style.display = "block") : null;
+                  }}
+                >
+                  more
+                </button>
+                <button
+                  className="hover:underline hidden"
+                  id={`lessBtn-${postDetails._id}`}
+                  onClick={() => {
+                    const caption = document.getElementById(postDetails._id);
+                    caption?.innerText
+                      ? (caption.innerText =
+                          postDetails?.caption.slice(0, 30) + "...")
+                      : null;
+                    const moreBtn = document.getElementById(
+                      `moreBtn-${postDetails._id}`
+                    );
+                    moreBtn ? (moreBtn.style.display = "block") : null;
+                    const lessBtn = document.getElementById(
+                      `lessBtn-${postDetails._id}`
+                    );
+                    lessBtn ? (lessBtn.style.display = "none") : null;
+                  }}
+                >
+                  less
+                </button>
+              </>
+            )}
+          </div>
+          {/* like and comment button */}
+          <div className="w-full flex justify-between">
+            <Like id={postDetails._id} />
+            <button
+              className="border font-semibold p-1 rounded hover:bg-black hover:bg-opacity-10"
+              onClick={() => setShowComments(!showComments)}
+            >
+              View Comments
             </button>
           </div>
-        ) : (
-          <h2 className="text-base border-y py-1 font-semibold text-center">
-            <Link href={"/login"} className="underline">
-              Login
-            </Link>{" "}
-            to get in touch with peoples
-          </h2>
-        )}
-        {(!comments || comments.length <= 0) && !commentsLoading && (
-          <h1 className="font-semibold text-center max-sm:text-sm">
-            No Comments Yet
-          </h1>
-        )}
-        {commentsLoading && (
-          <div className="w-full flex justify-center mt-2">
-            <Spinner2 width={50} height={50} border={3} />
+        </div>
+        {/* All comments section */}
+        <div
+          className={`w-full h-full z-10 bg-white dark:bg-slate-500 transition-all duration-300 flex flex-col absolute ${
+            showComments ? "top-0 left-0" : "translate-y-[100%]"
+          }`}
+        >
+          <div className="text-base sm:text-xl w-full flex justify-between p-2">
+            Comments
+            <button
+              onClick={() => setShowComments(!showComments)}
+              className="p-1 text-xl text-black dark:text-white text-opacity-60"
+            >
+              <FaWindowClose />
+            </button>
           </div>
-        )}
-        {comments?.length > 0 &&
-          comments?.map((comment, i) => (
-            <div className="flex flex-col" key={i}>
-              <div className="w-full flex justify-between items-center pl-1 pr-2">
-                <div className="flex items-center gap-1 p-2">
-                  <Image
-                    src={comment.commentBy.avatar.url || "/noavatar.png"}
-                    alt=""
-                    width={28}
-                    height={28}
-                    className="w-7 h-7 sm:w-9 sm:h-9 rounded-full object-cover"
-                  />
-                  <span className="text-sm sm:text-lg font-semibold">
-                    {comment.commentBy.username}
+          {session?.user ? (
+            <div className="w-full flex">
+              <input
+                type="text"
+                className="w-full bg-black bg-opacity-10 dark:bg-slate-600 outline-none text-[10px] sm:text-sm py-2 px-3"
+                placeholder="Comment Something..."
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                onKeyDown={handleKeyDown}
+              />
+              <button
+                className="bg-black bg-opacity-10 hover:bg-opacity-30 dark:bg-slate-600 dark:hover:bg-slate-700 p-1 px-2 sm:px-4 border-l border-l-white disabled:opacity-50"
+                onClick={() => newComment()}
+                disabled={commentsLoading || comment === ""}
+              >
+                {commentsLoading ? (
+                  <Spinner2 width={25} height={25} border={2} />
+                ) : (
+                  <BiSend />
+                )}
+              </button>
+            </div>
+          ) : (
+            <h2 className="text-base border-y py-1 font-semibold text-center">
+              <Link href={"/login"} className="underline">
+                Login
+              </Link>{" "}
+              to get in touch with peoples
+            </h2>
+          )}
+          {(!comments || comments.length <= 0) && !commentsLoading && (
+            <h1 className="font-semibold text-center max-sm:text-sm">
+              No Comments Yet
+            </h1>
+          )}
+          {commentsLoading && (
+            <div className="w-full flex justify-center mt-2">
+              <Spinner2 width={50} height={50} border={3} />
+            </div>
+          )}
+          {comments?.length > 0 &&
+            comments?.map((comment, i) => (
+              <div className="flex flex-col" key={i}>
+                <div className="w-full flex justify-between items-center pl-1 pr-2">
+                  <div className="flex items-center gap-1 p-2">
+                    <Image
+                      src={comment.commentBy.avatar.url || "/noavatar.png"}
+                      alt=""
+                      width={28}
+                      height={28}
+                      className="w-7 h-7 sm:w-9 sm:h-9 rounded-full object-cover"
+                    />
+                    <span className="text-sm sm:text-lg font-semibold">
+                      {comment.commentBy.username}
+                    </span>
+                  </div>
+                  <span className="text-xs sm:text-sm">
+                    {format(comment.createdAt)}
                   </span>
                 </div>
-                <span className="text-xs sm:text-sm">
-                  {format(comment.createdAt)}
-                </span>
+                <p
+                  className="w-full px-2 text-xs sm:text-sm"
+                  style={{ wordBreak: "break-all" }}
+                >
+                  {comment.commentText}
+                </p>
               </div>
-              <p
-                className="w-full px-2 text-xs sm:text-sm"
-                style={{ wordBreak: "break-all" }}
-              >
-                {comment.commentText}
-              </p>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
