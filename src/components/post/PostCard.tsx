@@ -22,7 +22,6 @@ import {
   TwitterIcon,
 } from "react-share";
 import { FaXmark } from "react-icons/fa6";
-import Head from "next/head";
 
 const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
   const { data: session } = useSession();
@@ -88,20 +87,6 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
 
   return (
     <>
-      <Head>
-        <title>{postDetails?.caption}</title>
-        <meta name="description" content={postDetails?.caption} />
-        <link rel="icon" href="/favicon.ico" />
-        <meta property="og:image" content={postDetails?.images[0].url} />
-        <meta property="og:title" content={postDetails?.caption} />
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content={postDetails?.caption} />
-        <meta property="twitter:image" content={postDetails?.images[0].url} />
-        <meta
-          name="twitter:url"
-          content={`https://social-media-app-next-js.vercel.app/post/${postDetails?._id}`}
-        />
-      </Head>
       <div className="w-full flex flex-col items-center relative overflow-hidden">
         <div className="w-full flex justify-between items-center px-2">
           <Link
