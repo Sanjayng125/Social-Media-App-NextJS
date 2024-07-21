@@ -15,23 +15,27 @@ const Search = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if ((showMenu === "posts" && posts.length > 0) || (showMenu === "peoples" && peoples.length > 0)) {
+      setLoading(false);
+      return;
+    }else{
+      getSearch();
+    }
+  }, [show]);
+
+  useEffect(()=>{
     if (queryParams.get("q") === null || queryParams.get("q") === "") {
       router.push("/explore");
     }
     if (queryParams.get("q") !== "" && queryParams.get("q") !== null) {
       getSearch();
     }
-  }, [show, queryParams.get("q")]);
+  },[queryParams.get("q")])
 
   const getSearch = async () => {
     const query = queryParams.get("q");
     const showMenu = show;
-
-    if ((showMenu === "posts" && posts.length > 0) || (showMenu === "peoples" && peoples.length > 0)) {
-      setLoading(false);
-      return;
-    }
-
+    
     try {
       setLoading(true);
       const api = await fetch(`/api/search?show=${showMenu}&q=${query}`);
