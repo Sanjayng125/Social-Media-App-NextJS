@@ -18,11 +18,7 @@ const Search = () => {
     if (queryParams.get("q") === null || queryParams.get("q") === "") {
       router.push("/explore");
     }
-    if (
-      show !== "" &&
-      queryParams.get("q") !== "" &&
-      queryParams.get("q") !== null
-    ) {
+    if (queryParams.get("q") !== "" && queryParams.get("q") !== null) {
       getSearch();
     }
   }, [show, queryParams.get("q")]);
@@ -30,6 +26,11 @@ const Search = () => {
   const getSearch = async () => {
     const query = queryParams.get("q");
     const showMenu = show;
+
+    if ((showMenu === "posts" && posts.length > 0) || (showMenu === "peoples" && peoples.length > 0)) {
+      setLoading(false);
+      return;
+    }
 
     try {
       setLoading(true);
@@ -57,9 +58,7 @@ const Search = () => {
               ? "bg-white shadow-lg dark:bg-slate-900 dark:shadow-white dark:shadow-sm"
               : "bg-black bg-opacity-10 dark:bg-transparent"
           }`}
-          onClick={() => {
-            setShow("posts");
-          }}
+          onClick={() => setShow("posts")}
         >
           Posts
         </button>
@@ -69,9 +68,7 @@ const Search = () => {
               ? "bg-white shadow-lg dark:bg-slate-900 dark:text-white dark:shadow-white dark:shadow-sm"
               : "bg-black bg-opacity-10 dark:bg-transparent"
           }`}
-          onClick={() => {
-            setShow("peoples");
-          }}
+          onClick={() => setShow("peoples")}
         >
           People
         </button>
