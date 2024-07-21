@@ -15,7 +15,7 @@ const Search = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if ((showMenu === "posts" && posts.length > 0) || (showMenu === "peoples" && peoples.length > 0)) {
+    if ((show === "posts" && posts.length > 0) || (show === "peoples" && peoples.length > 0)) {
       setLoading(false);
       return;
     }else{
