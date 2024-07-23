@@ -103,7 +103,7 @@ export default function Modal({
               </Swiper>
             </div>
             <div className="bg-white w-full p-4 flex justify-between items-center dark:bg-slate-900">
-              <h1 className="sm:text-2xl font-bold truncate">
+              <h1 className="sm:text-xl font-bold truncate">
                 {posts?.post?.caption}
               </h1>
               <div className="flex gap-3 items-center relative">

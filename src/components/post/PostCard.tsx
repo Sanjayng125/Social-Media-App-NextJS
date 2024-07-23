@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { BiSend } from "react-icons/bi";
+import { BiCommentDetail, BiSend } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import { format } from "timeago.js";
 import Like from "../Like";
@@ -195,12 +195,25 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
         {/* post info */}
         <div className="flex flex-col w-full p-2 px-3 gap-1">
           {/* post caption */}
-          <div className="flex flex-col items-start">
+          <div className="flex flex-col items-start space-y-1">
             <h1 className="font-semibold break-all" id={postDetails._id}>
               {(postDetails?.caption.length > 30 &&
                 postDetails?.caption.slice(0, 30) + "...") ||
                 postDetails?.caption}
             </h1>
+            {postDetails?.tags?.length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {postDetails?.tags.slice(0, 5).map((tag: string, i: number) => (
+                  <span
+                    key={i}
+                    className="text-sm bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-30 rounded-lg px-2 py-1 cursor-pointer"
+                    onClick={() => router.push(`/search?q=${tag}`)}
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
             {postDetails?.caption.length > 30 && (
               <>
                 <button
@@ -251,10 +264,10 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
           <div className="w-full flex justify-between">
             <Like id={postDetails._id} />
             <button
-              className="border font-semibold p-1 rounded hover:bg-black hover:bg-opacity-10"
+              className="border font-semibold p-1 rounded hover:bg-black hover:bg-opacity-10 text-3xl"
               onClick={() => setShowComments(!showComments)}
             >
-              View Comments
+              <BiCommentDetail />
             </button>
           </div>
         </div>
