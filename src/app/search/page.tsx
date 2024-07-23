@@ -97,7 +97,7 @@ const Search = () => {
   return (
     <div className="w-full bg-white shadow-2xl border h-full p-2 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10 dark:border-none">
       <h1 className="text-2xl font-semibold border-b mb-2">
-        Search Results for "{queryParams.get("q")}"
+        Search Results for &quot;{queryParams.get("q")}&quot;
       </h1>
       <div className="flex gap-2 mb-2">
         <button
