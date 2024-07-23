@@ -77,8 +77,12 @@ const Profile = () => {
 
   useEffect(() => {
     getUserDetails();
-    getUserPosts();
-    getUserLikedPosts();
+    if(userPosts?.length === 0){
+      getUserPosts();
+    }
+    if(userLikedPosts?.length === 0){
+      getUserLikedPosts();
+    }
   }, [session?.user.username, pathname]);
 
   //loadmore
@@ -182,7 +186,6 @@ const Profile = () => {
                 }`}
                 onClick={() => {
                   setShowPosts(true);
-                  setHasMore(true);
                 }}
               >
                 Posts
@@ -193,7 +196,6 @@ const Profile = () => {
                 }`}
                 onClick={() => {
                   setShowPosts(false);
-                  setHasMore(true);
                 }}
               >
                 Liked
