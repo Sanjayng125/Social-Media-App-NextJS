@@ -204,13 +204,13 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
             {postDetails?.tags?.length > 0 && (
               <div className="flex flex-wrap gap-1">
                 {postDetails?.tags.slice(0, 5).map((tag: string, i: number) => (
-                  <span
+                  <button
                     key={i}
-                    className="text-sm bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-30 rounded-lg px-2 py-1 cursor-pointer"
+                    className="text-sm bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-30 rounded-lg px-2 py-1 hover:underline"
                     onClick={() => router.push(`/search?q=${tag}`)}
                   >
                     #{tag}
-                  </span>
+                  </button>
                 ))}
               </div>
             )}
