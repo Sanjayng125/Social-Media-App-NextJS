@@ -131,27 +131,31 @@ export default function Modal({
           {/* comment */}
           <div className="bg-white flex flex-col overflow-y-auto w-[35%] h-full dark:bg-slate-600">
             <h1 className="px-2 font-semibold max-sm:text-sm">Comments</h1>
-            <div className="w-full flex my-1 border-y border-y-white">
-              <input
-                type="text"
-                className="w-full bg-black bg-opacity-10 outline-none text-[8px] sm:text-sm px-1"
-                placeholder="Comment Something..."
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                onKeyDown={handleKeyDown}
-              />
-              <button
-                className="bg-black bg-opacity-10 p-1 px-2 sm:px-4 border-l border-l-white disabled:opacity-50"
-                onClick={() => newComment()}
-                disabled={commentsLoading || comment === ""}
-              >
-                {commentsLoading ? (
-                  <Spinner2 width={15} height={15} border={2} />
-                ) : (
-                  <BiSend />
-                )}
-              </button>
-            </div>
+            {session?.user ? (
+              <div className="w-full flex my-1 border-y border-y-white">
+                <input
+                  type="text"
+                  className="w-full bg-black bg-opacity-10 outline-none text-[8px] sm:text-sm px-1"
+                  placeholder="Comment Something..."
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                />
+                <button
+                  className="bg-black bg-opacity-10 p-1 px-2 sm:px-4 border-l border-l-white disabled:opacity-50"
+                  onClick={() => newComment()}
+                  disabled={commentsLoading || comment === ""}
+                >
+                  {commentsLoading ? (
+                    <Spinner2 width={15} height={15} border={2} />
+                  ) : (
+                    <BiSend />
+                  )}
+                </button>
+              </div>
+            ) : (
+              <hr />
+            )}
             {(!postComments || postComments.length <= 0) && (
               <h1 className="font-semibold text-center max-sm:text-sm">
                 No Comments Yet

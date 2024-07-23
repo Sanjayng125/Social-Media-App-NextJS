@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { connectToDb } from "@/lib/db";
 import { User, Post } from "@/lib/models";
 import { imageProps } from "@/types";
+import { NextRequest } from "next/server";
 
 export interface Post {
     _id: string
@@ -19,7 +20,7 @@ export interface Post {
     tags: string[]
 }
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
     const session = await auth();
 
     if (session && session?.user) {
@@ -34,8 +35,18 @@ export const GET = async () => {
                 });
             }
 
+            const limit = parseInt(req.nextUrl.searchParams.get("limit") || "10");
+            const startIndex = parseInt(req.nextUrl.searchParams.get("startIndex") || "0");
+
             // Fetch the user with populated posts and likedPosts
-            const user = await User.findById(session?.user?.id).populate("posts likedPosts").select("posts likedPosts");
+            const user = await User.findById(session?.user?.id).populate({
+                path: "posts",
+                options: {
+                    sort: { createdAt: -1 },
+                    limit: limit,
+                    skip: startIndex
+                }
+            }).select("posts");
 
             if (user) {
                 // Type assertion to ensure TypeScript understands the type

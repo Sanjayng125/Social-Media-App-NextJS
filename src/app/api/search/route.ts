@@ -12,6 +12,8 @@ export const GET = async (req: NextRequest) => {
 
         const show = queryParams.get("show") || "posts"
         const query = queryParams.get("q") || ""
+        const limit = parseInt(queryParams.get("limit") || "10") || 10
+        const starIndex = parseInt(queryParams.get("starIndex") || "0") || 0
 
         if (show === "posts") {
             const posts = await Post.find({
@@ -20,7 +22,7 @@ export const GET = async (req: NextRequest) => {
                     { tags: { $elemMatch: { $regex: query, $options: 'i' } } }
                     // Add more fields and values as needed
                 ]
-            })
+            }).sort({ createdAt: -1 }).limit(limit).skip(starIndex)
             return Response.json({ posts })
         }
         else if (show === "peoples") {

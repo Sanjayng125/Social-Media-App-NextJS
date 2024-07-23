@@ -11,6 +11,7 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaSignOutAlt } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
+import { useInView } from "react-intersection-observer";
 
 interface followProps {
   followers: string[];
@@ -27,17 +28,43 @@ const Profile = () => {
   const [userDetails, setUserDetails] = useState<followProps>();
   const pathname = usePathname();
 
+  //loadmore
+  const { ref, inView } = useInView();
+  const [hasMore, setHasMore] = useState(true);
+
+  const getUserDetails = async () => {
+    try {
+      const res = await fetch(`/api/user/getFollows`);
+      const data = await res.json();
+      setUserDetails(data.userDetails);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   const getUserPosts = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/user/getUserPosts`);
-      const res2 = await fetch(`/api/user/getFollows`);
+      const res = await fetch(`/api/user/getMyPosts?limit=20`);
 
       const data = await res.json();
-      const data2 = await res2.json();
 
-      setUserDetails(data2.userDetails);
       setUserPosts(data.userPosts.posts);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  const getUserLikedPosts = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/user/getMyLikedPosts?limit=20`);
+
+      const data = await res.json();
+
       setUserLikedPosts(data.userPosts.likedPosts);
       setLoading(false);
     } catch (error) {
@@ -47,11 +74,46 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    getUserDetails();
     getUserPosts();
+    getUserLikedPosts();
   }, [session?.user.username, pathname]);
 
+  //loadmore
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        setLoading(true);
+        const api = await fetch(
+          `/api/user/${
+            showPosts ? "getUserPosts" : "getUserLikedPosts"
+          }?limit=20&startIndex=${
+            showPosts ? userPosts.length : userLikedPosts.length
+          }`
+        );
+        const res = await api.json();
+
+        if (showPosts) {
+          setUserPosts((prev) => [...prev, ...res.userPosts.posts]);
+          setHasMore(res.userPosts.posts.length >= 20);
+        } else {
+          setUserLikedPosts((prev) => [...prev, ...res.userPosts.likedPosts]);
+          setHasMore(res.userPosts.likedPosts.length >= 20);
+        }
+        // setStartIndex(startIndex + res.userPosts.posts.length);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    };
+    if (inView && !loading && hasMore) {
+      getPosts();
+    }
+  }, [inView]);
+
   return (
-    <div className="flex justify-center bg-white shadow-2xl border h-full md:p-3 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10 dark:border-none">
+    <div className="flex justify-center bg-white shadow-2xl border h-full md:p-3 md:rounded overflow-hidden dark:bg-white dark:bg-opacity-10 dark:border-none">
       {authLoading && (
         <h1 className="text-2xl font-semibold text-center">Loading...</h1>
       )}
@@ -116,7 +178,10 @@ const Profile = () => {
                 className={`hover:bg-white hover:bg-opacity-50 w-full font-semibold ${
                   showPosts && "bg-white bg-opacity-50"
                 }`}
-                onClick={() => setShowPosts(true)}
+                onClick={() => {
+                  setShowPosts(true);
+                  setHasMore(true);
+                }}
               >
                 Posts
               </button>
@@ -124,17 +189,15 @@ const Profile = () => {
                 className={`hover:bg-white hover:bg-opacity-50 w-full font-semibold ${
                   !showPosts && "bg-white bg-opacity-50"
                 }`}
-                onClick={() => setShowPosts(false)}
+                onClick={() => {
+                  setShowPosts(false);
+                  setHasMore(true);
+                }}
               >
                 Liked
               </button>
             </div>
-            <div className="w-full h-auto">
-              {loading && (
-                <div className="w-full flex justify-center mt-2">
-                  <Spinner2 width={40} height={40} border={2} />
-                </div>
-              )}
+            <div className="w-full h-auto max-md:mb-16">
               {!loading && showPosts && userPosts?.length === 0 && (
                 <h1 className="text-white text-center text-xl">
                   No Posts Yet!
@@ -142,13 +205,19 @@ const Profile = () => {
               )}
               {!loading && !showPosts && userLikedPosts?.length === 0 && (
                 <h1 className="text-white text-center text-xl">
-                  No Liked Posts Yet!
+                  You didn't like any posts yet!
                 </h1>
               )}
               {showPosts ? (
                 <UserPosts posts={userPosts} />
               ) : (
                 <UserLikedPosts posts={userLikedPosts} />
+              )}
+              {/* loadmore */}
+              {hasMore && (
+                <div className="flex justify-center my-1" ref={ref}>
+                  <Spinner2 width={40} height={40} border={3} />
+                </div>
               )}
             </div>
           </div>

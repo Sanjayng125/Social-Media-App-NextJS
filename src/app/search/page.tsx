@@ -5,46 +5,60 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 const Search = () => {
   const queryParams = useSearchParams();
   const router = useRouter();
   const [show, setShow] = useState("posts");
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [peoples, setPeoples] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  //loadmore
+  const { ref, inView } = useInView();
+  const [startIndex, setStartIndex] = useState(20);
+  const [hasMore, setHasMore] = useState(false);
+
   useEffect(() => {
-    if ((show === "posts" && posts.length > 0) || (show === "peoples" && peoples.length > 0)) {
+    if (
+      (show === "posts" && posts.length > 0) ||
+      (show === "peoples" && peoples.length > 0)
+    ) {
       setLoading(false);
       return;
-    }else{
+    } else {
       getSearch();
     }
   }, [show]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (queryParams.get("q") === null || queryParams.get("q") === "") {
       router.push("/explore");
     }
     if (queryParams.get("q") !== "" && queryParams.get("q") !== null) {
-      setPosts([])
-      setPeoples([])
+      setPosts([]);
+      setPeoples([]);
       getSearch();
     }
-  },[queryParams.get("q")])
+  }, [queryParams.get("q")]);
 
   const getSearch = async () => {
     const query = queryParams.get("q");
     const showMenu = show;
-    
+
     try {
       setLoading(true);
-      const api = await fetch(`/api/search?show=${showMenu}&q=${query}`);
+      const api = await fetch(
+        `/api/search?show=${showMenu}&q=${query}${
+          showMenu === "posts" ? "&limit=20" : ""
+        }`
+      );
       const res = await api.json();
 
       if (res?.posts) {
         setPosts(res.posts);
+        setHasMore(res.posts.length >= 20);
       } else if (res?.peoples) {
         setPeoples(res.peoples);
       }
@@ -54,6 +68,31 @@ const Search = () => {
       setLoading(false);
     }
   };
+
+  //loadmore
+  useEffect(() => {
+    const getPosts = async () => {
+      const query = queryParams.get("q");
+      try {
+        setLoading(true);
+        const api = await fetch(
+          `/api/search?show=posts&q=${query}&limit=20&starIndex=${startIndex}`
+        );
+        const res = await api.json();
+
+        setPosts((prev) => [...prev, ...res.posts]);
+        setStartIndex(startIndex + res.posts.length);
+        setHasMore(res.posts.length >= 20);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    };
+    if (inView && !loading && hasMore) {
+      getPosts();
+    }
+  }, [inView && show === "posts"]);
 
   return (
     <div className="w-full bg-white shadow-2xl border h-full p-2 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10 dark:border-none">
@@ -92,7 +131,7 @@ const Search = () => {
               Posts Not Found!
             </h2>
           )}
-          <div className="w-full grid grid-cols-3">
+          <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2">
             {posts?.map((post: Post, i) => (
               <div key={i} className="">
                 <Link href={`/post/${post?._id}`}>
@@ -108,6 +147,12 @@ const Search = () => {
               </div>
             ))}
           </div>
+          {/* loadmore */}
+          {hasMore && (
+            <div className="flex justify-center my-1" ref={ref}>
+              <Spinner2 width={40} height={40} border={3} />
+            </div>
+          )}
         </div>
       )}
       {show === "peoples" && (

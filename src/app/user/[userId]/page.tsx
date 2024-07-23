@@ -1,17 +1,24 @@
 "use client";
 import Spinner2 from "@/components/loader/Spinner2";
 import UserPosts from "@/components/user/UserPosts";
-import { IUser } from "@/types";
+import { IUser, Post } from "@/types";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 const UserProfile = ({ params }: { params: { userId: string } }) => {
   const [loading, setLoading] = useState(false);
   const [userDetails, setUserDetails] = useState<IUser | any>(null);
+  const [userPosts, setUserPosts] = useState<Post[]>([]);
   const [following, setFollowing] = useState(true);
   const [followLoading, setFollowLoading] = useState(true);
   const { data: session } = useSession();
+
+  //loadmore
+  const { ref, inView } = useInView();
+  const [startIndex, setStartIndex] = useState(20);
+  const [hasMore, setHasMore] = useState(false);
 
   const getUserDetails = async () => {
     try {
@@ -20,6 +27,21 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
       const res = await api.json();
 
       setUserDetails(res?.userDetails);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  const getUserPosts = async () => {
+    try {
+      setLoading(true);
+      const api = await fetch(`/api/getUserPosts/${params.userId}?limit=20`);
+      const res = await api.json();
+
+      setUserPosts(res?.userPosts);
+      setHasMore(res?.userPosts.length >= 20);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -43,7 +65,32 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
 
   useEffect(() => {
     getUserDetails();
+    getUserPosts();
   }, []);
+
+  //loadmore
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        setLoading(true);
+        const api = await fetch(
+          `/api/getUserPosts/${params.userId}?limit=20&startIndex=${startIndex}`
+        );
+        const res = await api.json();
+
+        setUserPosts((prev) => [...prev, ...res.userPosts]);
+        setStartIndex(startIndex + res.userPosts.length);
+        setHasMore(res.userPosts.length >= 20);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    };
+    if (inView && !loading && hasMore) {
+      getPosts();
+    }
+  }, [inView]);
 
   useEffect(() => {
     if (session?.user.username && params.userId !== session.user.id) {
@@ -74,8 +121,8 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
   };
 
   return (
-    <div className="flex flex-col justify-center bg-white shadow-2xl border h-full md:p-3 md:rounded overflow-y-auto dark:bg-white dark:bg-opacity-10 dark:border-none">
-      {loading && (
+    <div className="flex flex-col justify-center bg-white shadow-2xl border h-full md:p-3 md:rounded overflow-hidden dark:bg-white dark:bg-opacity-10 dark:border-none">
+      {loading && !userDetails && (
         <div className="w-full flex justify-center">
           <Spinner2 width={50} height={50} border={3} />
         </div>
@@ -154,8 +201,14 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
             <div className="flex justify-evenly gap-2 bg-white text-[18px] font-semibold dark:bg-slate-800">
               Posts
             </div>
-            <div className="w-full h-auto">
-              {userDetails.posts && <UserPosts posts={userDetails.posts} />}
+            <div className="w-full h-auto max-md:mb-16">
+              {userPosts?.length > 0 && <UserPosts posts={userPosts} />}
+              {/* loadmore */}
+              {hasMore && userDetails && (
+                <div className="flex justify-center my-1" ref={ref}>
+                  <Spinner2 width={40} height={40} border={3} />
+                </div>
+              )}
             </div>
           </div>
         </div>

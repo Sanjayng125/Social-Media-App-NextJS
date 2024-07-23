@@ -40,7 +40,7 @@ const UserPosts = (posts: { posts: Post[] }) => {
 
   return (
     <div className="w-full mt-2">
-      <div className="w-full grid grid-cols-3">
+      <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2">
         {posts &&
           posts?.posts?.length > 0 &&
           posts?.posts?.map((post: Post | any, i: number) => (

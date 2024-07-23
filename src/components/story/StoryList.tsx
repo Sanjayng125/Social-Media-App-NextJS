@@ -8,6 +8,7 @@ import { CgClose } from "react-icons/cg";
 import { HiPhoto } from "react-icons/hi2";
 import Spinner2 from "../loader/Spinner2";
 import StoryModal from "./StoryModal";
+import { BiPlus } from "react-icons/bi";
 
 export default function StoryList({
   stories,
@@ -160,7 +161,9 @@ export default function StoryList({
             <span className="font-medium">
               {loading ? "Posting..." : "Add a Story"}
             </span>
-            <div className="absolute text-6xl text-gray-200 top-1">+</div>
+            <span className="absolute w-7 h-7 text-2xl flex items-center justify-center text-blue-600 bg-white rounded-full bottom-5 border right-1">
+              <BiPlus />
+            </span>
           </button>
           {/* ALL STORIES */}
           {stories.map((story: MultipleStoryProps, i: number) => (

@@ -10,7 +10,7 @@ export default function Story() {
   const [stories, setStories] = useState<MultipleStoryProps[]>([]);
   const getStories = async () => {
     try {
-      const res = await fetch("/api/user/getUserStories");
+      const res = await fetch("/api/user/getMyStories");
       const data = await res.json();
       setStories(data.userStories);
     } catch (error) {
