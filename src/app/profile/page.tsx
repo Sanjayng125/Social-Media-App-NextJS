@@ -30,7 +30,7 @@ const Profile = () => {
 
   //loadmore
   const { ref, inView } = useInView();
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
 
   const getUserDetails = async () => {
     try {
@@ -50,7 +50,8 @@ const Profile = () => {
 
       const data = await res.json();
 
-      setUserPosts(data.userPosts.posts);
+      setUserPosts(data?.userPosts?.posts);
+      setHasMore(data?.userPosts?.posts?.length >= 20);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -66,6 +67,7 @@ const Profile = () => {
       const data = await res.json();
 
       setUserLikedPosts(data.userPosts.likedPosts);
+      setHasMore(data.userPosts.likedPosts.length >= 20);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -86,7 +88,7 @@ const Profile = () => {
         setLoading(true);
         const api = await fetch(
           `/api/user/${
-            showPosts ? "getUserPosts" : "getUserLikedPosts"
+            showPosts ? "getMyPosts" : "getMyLikedPosts"
           }?limit=20&startIndex=${
             showPosts ? userPosts.length : userLikedPosts.length
           }`
@@ -198,6 +200,11 @@ const Profile = () => {
               </button>
             </div>
             <div className="w-full h-auto max-md:mb-16">
+              {loading && (!userPosts?.length || !userLikedPosts?.length) && (
+                <div className="w-full flex justify-center mt-2">
+                  <Spinner2 width={40} height={40} border={2} />
+                </div>
+              )}
               {!loading && showPosts && userPosts?.length === 0 && (
                 <h1 className="text-white text-center text-xl">
                   No Posts Yet!

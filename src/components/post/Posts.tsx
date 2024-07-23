@@ -30,7 +30,11 @@ const Posts = () => {
   };
 
   useEffect(() => {
-    getPosts();
+    if (!posts?.length) {
+      getPosts();
+    } else {
+      setLoading(false);
+    }
   }, []);
 
   //loadmore

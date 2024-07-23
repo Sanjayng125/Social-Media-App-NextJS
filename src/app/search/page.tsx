@@ -131,7 +131,7 @@ const Search = () => {
               Posts Not Found!
             </h2>
           )}
-          <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2">
+          <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 max-md:mb-16">
             {posts?.map((post: Post, i) => (
               <div key={i} className="">
                 <Link href={`/post/${post?._id}`}>
@@ -167,7 +167,7 @@ const Search = () => {
               Users Not Found!
             </h2>
           )}
-          <div className="w-full grid grid-cols-2 gap-2">
+          <div className="w-full grid grid-cols-2 gap-2 max-md:mb-16">
             {peoples?.map((user: any, i) => (
               <Link
                 href={`/user/${user?._id}`}
