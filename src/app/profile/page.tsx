@@ -205,7 +205,7 @@ const Profile = () => {
               )}
               {!loading && !showPosts && userLikedPosts?.length === 0 && (
                 <h1 className="text-white text-center text-xl">
-                  You didn't like any posts yet!
+                  You did not like any posts yet!
                 </h1>
               )}
               {showPosts ? (
