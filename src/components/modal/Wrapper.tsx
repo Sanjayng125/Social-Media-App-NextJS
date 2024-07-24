@@ -40,7 +40,7 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
     >
       <div
         ref={wrapper}
-        className="w-full sm:w-10/12 md:w-10/12 lg:w-3/5 flex max-h-[340px]"
+        className="w-full sm:w-10/12 md:w-10/12 lg:w-3/5 flex max-h-[380px]"
       >
         {children}
       </div>

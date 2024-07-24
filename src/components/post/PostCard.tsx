@@ -278,20 +278,20 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
           }`}
         >
           <div className="text-base sm:text-xl w-full flex justify-between p-2">
-            Comments
+            <h1 className="font-semibold text-xl">Comments</h1>
             <button
               onClick={() => setShowComments(!showComments)}
-              className="p-1 text-xl text-black dark:text-white text-opacity-60"
+              className="p-1 text-xl"
             >
-              <FaWindowClose />
+              <FaXmark />
             </button>
           </div>
           {session?.user ? (
             <div className="w-full flex">
               <input
                 type="text"
-                className="w-full bg-black bg-opacity-10 dark:bg-slate-600 outline-none text-[10px] sm:text-sm py-2 px-3"
-                placeholder="Comment Something..."
+                className="w-full bg-black bg-opacity-10 dark:bg-slate-600 outline-none text-base sm:text-lg py-2 px-3"
+                placeholder="Type a Comment..."
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 onKeyDown={handleKeyDown}
@@ -317,7 +317,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
             </h2>
           )}
           {(!comments || comments.length <= 0) && !commentsLoading && (
-            <h1 className="font-semibold text-center max-sm:text-sm">
+            <h1 className="font-semibold text-center max-sm:text-base text-xl">
               No Comments Yet
             </h1>
           )}
@@ -336,9 +336,9 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
                       alt=""
                       width={28}
                       height={28}
-                      className="w-7 h-7 sm:w-9 sm:h-9 rounded-full object-cover"
+                      className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover"
                     />
-                    <span className="text-sm sm:text-lg font-semibold">
+                    <span className="text-base sm:text-lg font-semibold">
                       {comment.commentBy.username}
                     </span>
                   </div>
@@ -347,7 +347,7 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
                   </span>
                 </div>
                 <p
-                  className="w-full px-2 text-xs sm:text-sm"
+                  className="w-full px-2 text-sm sm:text-lg"
                   style={{ wordBreak: "break-all" }}
                 >
                   {comment.commentText}

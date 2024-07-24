@@ -71,7 +71,7 @@ export default function Modal({
         <>
           {/* Post */}
           <div className="border-r-2 border-white w-[65%] h-full flex flex-col justify-between">
-            {loading && (
+            {loading && !posts && (
               <h1 className="w-full text-center text-xl font-semibold">
                 Loading...
               </h1>
