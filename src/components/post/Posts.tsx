@@ -12,13 +12,13 @@ const Posts = () => {
 
   //loadmore
   const { ref, inView } = useInView();
-  const [startIndex, setStartIndex] = useState(4);
+  const [startIndex, setStartIndex] = useState(5);
   const [hasMore, setHasMore] = useState(true);
 
   const getPosts = async () => {
     try {
       setLoading(true);
-      const api = await fetch("/api/getPosts?limit=4");
+      const api = await fetch("/api/getPosts?limit=5");
       const res = await api.json();
 
       setPosts(res.posts);
@@ -43,13 +43,13 @@ const Posts = () => {
       try {
         setLoading(true);
         const api = await fetch(
-          "/api/getPosts?startIndex=" + startIndex + "&limit=4"
+          "/api/getPosts?startIndex=" + startIndex + "&limit=5"
         );
         const res = await api.json();
 
         setPosts((prev) => [...prev, ...res.posts]);
         setStartIndex(startIndex + res.posts.length);
-        setHasMore(res.posts.length >= 4);
+        setHasMore(res.posts.length >= 5);
         setLoading(false);
       } catch (error) {
         console.log(error);

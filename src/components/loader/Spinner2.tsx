@@ -16,7 +16,8 @@ const Spinner2 = ({
       style={{
         width: `${width}px` || "80px",
         height: `${height}px` || "80px",
-        borderTop: `${border}px solid` || "4px solid",
+        border: `${border}px solid` || "4px solid",
+        borderTopColor: "transparent",
       }}
     ></div>
   );

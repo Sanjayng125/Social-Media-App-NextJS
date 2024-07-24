@@ -80,7 +80,7 @@ const Create = () => {
           <input
             type="text"
             className="p-3 w-full rounded-lg border font-semibold dark:border dark:bg-transparent"
-            placeholder="Tags"
+            placeholder="Tags (separated by space)"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
           />

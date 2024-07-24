@@ -24,8 +24,8 @@ export const PATCH = async (req: Request, { params }: { params: { id: string } }
                 return Response.json({ status: "error", message: "User not found! Please login again." }, { status: 403 })
             }
 
-            const getTags = tags.split(" ");
-            const allTags = getTags.filter((e: string) => e !== "");
+            const getTags = (tags: string) => tags.split(" ").map(tag => tag.replace(/#/g, "").toLowerCase());
+            const allTags = Array.from(new Set(getTags(tags).filter((e: string) => e !== "")))
 
             const post = await Post.findById(params.id)
 

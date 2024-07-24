@@ -43,8 +43,8 @@ export const POST = async (req: Request) => {
                 return Response.json({ status: "error", message: "User not found! Please login again." }, { status: 403 })
             }
 
-            const getTags = tags.split(" ");
-            const allTags = getTags.filter((e: string) => e !== "");
+            const getTags = (tags: string) => tags.split(" ").map(tag => tag.replace(/#/g, "").toLowerCase());
+            const allTags = Array.from(new Set(getTags(tags).filter((e: string) => e !== "")));
 
             const uploadPromises = images.map(async (image: string) => {
 

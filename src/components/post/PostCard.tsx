@@ -201,19 +201,6 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
                 postDetails?.caption.slice(0, 30) + "...") ||
                 postDetails?.caption}
             </h1>
-            {postDetails?.tags?.length > 0 && (
-              <div className="flex flex-wrap gap-1">
-                {postDetails?.tags.slice(0, 5).map((tag: string, i: number) => (
-                  <button
-                    key={i}
-                    className="text-sm bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-30 rounded-lg px-2 py-1 hover:underline"
-                    onClick={() => router.push(`/search?q=${tag}`)}
-                  >
-                    #{tag}
-                  </button>
-                ))}
-              </div>
-            )}
             {postDetails?.caption.length > 30 && (
               <>
                 <button
@@ -258,6 +245,19 @@ const PostCard = ({ postDetails }: { postDetails: Post | any }) => {
                   less
                 </button>
               </>
+            )}
+            {postDetails?.tags?.length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {postDetails?.tags.slice(0, 5).map((tag: string, i: number) => (
+                  <button
+                    key={i}
+                    className="text-sm bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-30 rounded-lg px-2 py-1 hover:underline"
+                    onClick={() => router.push(`/search?q=${tag}`)}
+                  >
+                    #{tag}
+                  </button>
+                ))}
+              </div>
             )}
           </div>
           {/* like and comment button */}

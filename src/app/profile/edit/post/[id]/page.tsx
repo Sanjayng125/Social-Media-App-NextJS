@@ -86,7 +86,7 @@ const EditPost = ({ params }: { params: { id: string } }) => {
         <div className="w-full flex flex-col gap-3">
           <input
             type="text"
-            className="p-3 w-full rounded-lg border placeholder:opacity-70 placeholder:text-white font-semibold dark:border dark:bg-transparent"
+            className="p-3 w-full rounded-lg border placeholder:opacity-70 font-semibold dark:border dark:bg-transparent"
             placeholder="Caption"
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
@@ -113,14 +113,14 @@ const EditPost = ({ params }: { params: { id: string } }) => {
           </div>
           <input
             type="text"
-            className="p-3 w-full rounded-lg border placeholder:opacity-70 placeholder:text-white font-semibold dark:border dark:bg-transparent"
-            placeholder="Tags"
+            className="p-3 w-full rounded-lg border placeholder:opacity-70 font-semibold dark:border dark:bg-transparent"
+            placeholder="Tags (separated by space)"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
           />
         </div>
         <button
-          className="bg-white hover:bg-opacity-50 dark:hover:bg-opacity-50 p-2 rounded-lg w-full font-semibold disabled:opacity-80 dark:bg-slate-900"
+          className="bg-white dark:bg-slate-900 hover:bg-opacity-80 dark:hover:bg-opacity-80 p-2 rounded-lg w-full font-semibold disabled:bg-opacity-40 dark:disabled:bg-opacity-40"
           onClick={handleUpdatePost}
           disabled={
             loading ||
