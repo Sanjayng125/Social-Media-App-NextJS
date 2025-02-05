@@ -1,6 +1,7 @@
 "use client";
 import Spinner2 from "@/components/loader/Spinner2";
 import UserPosts from "@/components/user/UserPosts";
+import useStore from "@/context/store";
 import { IUser, Post } from "@/types";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -14,6 +15,7 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
   const [following, setFollowing] = useState(true);
   const [followLoading, setFollowLoading] = useState(true);
   const { data: session } = useSession();
+  const { getFollows } = useStore();
 
   //loadmore
   const { ref, inView } = useInView();
@@ -111,6 +113,7 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
       if (res?.status === "success") {
         checkFollowing();
         getUserDetails();
+        getFollows();
         // alert(res?.message);
       }
       setFollowLoading(false);

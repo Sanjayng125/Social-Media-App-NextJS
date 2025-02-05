@@ -1,8 +1,8 @@
 {
   "id": "1",
-  "name": "SastaGram",
-  "short_name": "SastaGram",
-  "description": "This is a simple instagram clone like social media app",
+  "name": "RepoHub",
+  "short_name": "RepoHub",
+  "description": "RepoHub is a powerful GitHub companion app built with Next.js, designed to enhance your repository management experience. Easily log in with your GitHub account, explore repositories with some filters, view your profile and repositories, search for other users, and view their profiles and repositories. The standout feature of RepoHub is the ability to create custom repository collections, allowing you to save and organize your favorite repositories just like creating a playlist on YouTube.",
   "icons": [
     {
       "src": "/img-192.png",
@@ -11,8 +11,8 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/img-384.png",
-      "sizes": "384x384",
+      "src": "/img-180.png",
+      "sizes": "180x180",
       "type": "image/png"
     },
     {

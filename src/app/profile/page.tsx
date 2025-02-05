@@ -2,6 +2,7 @@
 import Spinner2 from "@/components/loader/Spinner2";
 import UserLikedPosts from "@/components/user/UserLikedPosts";
 import UserPosts from "@/components/user/UserPosts";
+import useStore from "@/context/store";
 import { handleLogOut } from "@/lib/actions";
 import { Post } from "@/types";
 import { useSession } from "next-auth/react";
@@ -13,24 +14,25 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { useInView } from "react-intersection-observer";
 
-interface followProps {
-  followers: string[];
-  following: string[];
-}
-
 const Profile = () => {
   const { data: session, status } = useSession();
   const authLoading = status === "loading" || false;
   const [showPosts, setShowPosts] = useState(true);
-  const [userPosts, setUserPosts] = useState<Post[]>([]);
-  const [userLikedPosts, setUserLikedPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
-  const [userDetails, setUserDetails] = useState<followProps>();
+  const {
+    setUserFollows: setUserDetails,
+    userFollows: userDetails,
+    userPosts,
+    setUserPosts,
+    userLikedPosts,
+    setUserLikedPosts,
+    hasMorePosts: hasMore,
+    setHasMorePosts: setHasMore,
+  } = useStore();
   const pathname = usePathname();
 
   //loadmore
   const { ref, inView } = useInView();
-  const [hasMore, setHasMore] = useState(false);
 
   const getUserDetails = async () => {
     try {
@@ -77,12 +79,8 @@ const Profile = () => {
 
   useEffect(() => {
     getUserDetails();
-    if(userPosts?.length === 0){
-      getUserPosts();
-    }
-    if(userLikedPosts?.length === 0){
-      getUserLikedPosts();
-    }
+    getUserPosts();
+    getUserLikedPosts();
   }, [session?.user.username, pathname]);
 
   //loadmore
@@ -100,10 +98,10 @@ const Profile = () => {
         const res = await api.json();
 
         if (showPosts) {
-          setUserPosts((prev) => [...prev, ...res.userPosts.posts]);
+          setUserPosts([...userPosts, ...res.userPosts.posts]);
           setHasMore(res.userPosts.posts.length >= 20);
         } else {
-          setUserLikedPosts((prev) => [...prev, ...res.userPosts.likedPosts]);
+          setUserLikedPosts([...userLikedPosts, ...res.userPosts.likedPosts]);
           setHasMore(res.userPosts.likedPosts.length >= 20);
         }
         // setStartIndex(startIndex + res.userPosts.posts.length);
@@ -202,11 +200,12 @@ const Profile = () => {
               </button>
             </div>
             <div className="w-full h-auto max-md:mb-16">
-              {loading && (!userPosts?.length || !userLikedPosts?.length) && (
-                <div className="w-full flex justify-center mt-2">
-                  <Spinner2 width={40} height={40} border={2} />
-                </div>
-              )}
+              {loading &&
+                (userPosts?.length <= 0 || userLikedPosts?.length <= 0) && (
+                  <div className="w-full flex justify-center mt-2">
+                    <Spinner2 width={40} height={40} border={2} />
+                  </div>
+                )}
               {!loading && showPosts && userPosts?.length === 0 && (
                 <h1 className="text-white text-center text-xl">
                   No Posts Yet!

@@ -14,6 +14,7 @@ const withPWA = withPWAInit({
 });
 
 export default withPWA({
+  output: "standalone",
   images: {
     remotePatterns: [
       { hostname: "cdn.pixabay.com" },

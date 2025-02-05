@@ -5,15 +5,15 @@ import PostCard from "./PostCard";
 import { Post } from "@/types";
 import { useInView } from "react-intersection-observer";
 import Spinner2 from "../loader/Spinner2";
+import useStore from "@/context/store";
 
 const Posts = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const { posts, setPosts, hasMore, setHasMore } = useStore();
   const [loading, setLoading] = useState(true);
 
   //loadmore
   const { ref, inView } = useInView();
   const [startIndex, setStartIndex] = useState(5);
-  const [hasMore, setHasMore] = useState(true);
 
   const getPosts = async () => {
     try {
@@ -23,6 +23,7 @@ const Posts = () => {
 
       setPosts(res.posts);
       setLoading(false);
+      setHasMore(res.posts.length >= 5 ? true : false);
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -30,16 +31,16 @@ const Posts = () => {
   };
 
   useEffect(() => {
-    if (!posts?.length) {
+    if (posts?.length <= 0) {
       getPosts();
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [posts?.length]);
 
   //loadmore
   useEffect(() => {
-    const getPosts = async () => {
+    const getMorePosts = async () => {
       try {
         setLoading(true);
         const api = await fetch(
@@ -47,7 +48,7 @@ const Posts = () => {
         );
         const res = await api.json();
 
-        setPosts((prev) => [...prev, ...res.posts]);
+        setPosts([...posts, ...res.posts]);
         setStartIndex(startIndex + res.posts.length);
         setHasMore(res.posts.length >= 5);
         setLoading(false);
@@ -56,10 +57,10 @@ const Posts = () => {
         setLoading(false);
       }
     };
-    if (inView && !loading && hasMore) {
-      getPosts();
+    if (inView && !loading && hasMore && posts.length > 0) {
+      getMorePosts();
     }
-  }, [inView]);
+  }, [inView, loading, hasMore, posts.length]);
 
   return (
     <div className="w-full max-md:min-h-full flex flex-col gap-3 items-center mt-3 bg-white text-black dark:text-white md:rounded-lg dark:bg-transparent">
@@ -67,14 +68,17 @@ const Posts = () => {
         <h1 className="text-xl text-center">No Grams Yet!...</h1>
       )}
       {/* {loading && <h1 className="text-xl text-center">Loading...</h1>} */}
-      {posts.map((post, i) => (
-        <PostCard postDetails={post} key={i} />
-      ))}
+      {posts && posts.map((post, i) => <PostCard postDetails={post} key={i} />)}
       {/* loadmore */}
       {!hasMore && !loading && (
         <h1 className="text-xl text-center mb-2">No More Posts!...</h1>
       )}
-      {hasMore && (
+      {loading && posts.length <= 0 && (
+        <div className="flex justify-center my-1">
+          <Spinner2 width={40} height={40} border={3} />
+        </div>
+      )}
+      {hasMore && posts.length > 0 && (
         <div className="flex justify-center my-1" ref={ref}>
           <Spinner2 width={40} height={40} border={3} />
         </div>

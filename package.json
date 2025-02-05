@@ -28,7 +28,8 @@
     "react-share": "^5.1.0",
     "sharp": "^0.33.4",
     "swiper": "^11.0.7",
-    "timeago.js": "^4.0.2"
+    "timeago.js": "^4.0.2",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@types/node": "^20",

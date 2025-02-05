@@ -183,7 +183,13 @@ export default function StoryList({
                 priority
                 className="w-20 h-20 rounded-full ring-2 shadow-xl"
               />
-              <span className="font-medium">{story.username || ""}</span>
+              <span className="font-medium">
+                {story?.username
+                  ? story.username === session?.user?.username
+                    ? "You"
+                    : story.username
+                  : "Anonymous"}
+              </span>
             </div>
           ))}
         </>

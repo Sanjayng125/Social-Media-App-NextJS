@@ -4,41 +4,27 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Spinner2 from "../loader/Spinner2";
+import useStore from "@/context/store";
 
 const RightSideBar = () => {
   const { data: session } = useSession();
-  const [followings, setFollowings] = useState([]);
-  const [followers, setFollowers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const getFollows = async () => {
-    try {
-      setLoading(true);
-      const api = await fetch(`/api/user/getFollows?limit=20&populate=true`);
-      const res = await api.json();
-
-      setFollowers(res?.userDetails?.followers);
-      setFollowings(res?.userDetails?.following);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
+  const { followers, followings, getFollows, isLoading: loading } = useStore();
 
   useEffect(() => {
-    if (session && session.user) {
+    if (
+      session &&
+      session.user &&
+      (followers?.length <= 0 || followings?.length <= 0)
+    ) {
       getFollows();
-    } else {
-      setLoading(false);
     }
-  }, [session?.user.username]);
+  }, [session?.user.username, followers?.length, followings?.length]);
 
   return (
     <div className="bg-white shadow-2xl border h-full rounded p-2 dark:bg-white dark:bg-opacity-10 dark:border-none">
       {session && session.user ? (
         <div className="flex flex-col">
-          {loading && (
+          {loading && followers.length === 0 && followings.length === 0 && (
             <div className="w-full flex justify-center">
               <Spinner2 width={40} height={40} border={2} />
             </div>
